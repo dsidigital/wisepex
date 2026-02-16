@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#dfeaff">
+    <title>Wisepex - Interface</title>
+    <link rel="icon" href="img/Sparky blue4.png" type="image/x-icon">
+
+    <!-- Critical paint: evita flash negro antes de cargar imágenes/CSS -->
+    <style>
+        @import "styles.css";
+    </style>
+ 
+    <!-- Preload del background para evitar "flash" y mejorar LCP -->
+    <link rel="preload" as="image" href="img/Honeypex Background.png" fetchpriority="high">
+    <link rel="preload" as="image" href="img/Honeypex-Background-Mobile.png" media="(max-width: 900px)" fetchpriority="high">
+    <style>
+        
+
+        :root {
+            --neon-blue: #1304ea;
+            --neon-purple: #8137ff;
+            --logo-width-desktop: 35vw;
+            --content-gap-bottom: 12vh;            
+        }
+
+        /* ========== RESET UNIVERSAL ========== */
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* ========== BASE STYLES ========== */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            background-color: #dfeaff;
+        }
+
+        /* ========== SCROLL WRAPPER (maneja el scroll de toda la página) ========== */
+        .scroll-wrapper {
+            min-height: 100dvh;
+            height: 100%;            
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            position: relative;
+            scrollbar-width: auto;
+            scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+        }
+
+        /* Barra de scroll personalizada para Chrome/Safari/Edge */
+        .scroll-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .scroll-wrapper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .scroll-wrapper::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+        
+        .scroll-wrapper::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            background: transparent;
+        }
+
+        /* ========== PAGE SCROLLBAR (igual que index.html) ========== */
+        html, body {
+            scrollbar-width: auto;
+            scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        html::-webkit-scrollbar-track,
+        body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        html::-webkit-scrollbar-thumb,
+        body::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        html::-webkit-scrollbar-thumb:hover,
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* ===== BACKGROUND ===== */
+        .tunnel-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;               /* Safari dynamic viewport */
+            background-image: url("img/Honeypex Background.png");
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            /* background-attachment: fixed  ELIMINADO — el div ya es position:fixed,
+               y esta propiedad rompe el fondo en Safari iOS */
+            pointer-events: none;
+            z-index: -1;
+            -webkit-transform: translateZ(0);  /* fuerza composición GPU en Safari */
+            transform: translateZ(0);
+        }
+
+        
+        /* ========== SCROLL CONTAINER ========== */
+        .global-site-container {
+            position: relative;
+            z-index: 2;
+            width: 92%;
+            max-width: 1800px;
+            margin: 0 auto;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+            min-height: 100dvh;
+            padding-bottom: 8vh; /* espacio consistente inferior */        }
+
+        /* Título principal */
+        .main-title {
+            display: block;
+            position: fixed;
+            top: calc(50% - 18vh);
+            left: 5vw;
+            z-index: 102;
+            opacity: 0;
+            animation: titleAppear 1s ease-out 2.5s forwards;
+        }
+
+
+
+        .content-columns {
+            display: flex;
+            gap: 3vw;
+            align-items: flex-start;
+            margin-bottom: 1vh;
+        }
+
+        .content-icon {
+            flex-shrink: 0;
+            width: clamp(2.5rem, 8vw, 3.5rem);
+            height: clamp(2.5rem, 8vw, 3.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #000;
+        }
+
+        .content-text {
+            flex: 1;
+            font-size: clamp(0.9rem, 2.8vw, 1.1rem);
+            line-height: 1.5;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .content-image-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        /* --- NUEVO BLOQUE ÚNICO AL 80% --- */
+        .content-block-pilot {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+            width: 100%;
+            margin: 18vh auto 10vh auto;
+            max-width: 1600px;
+            padding: 5vh;            
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #000;
+            box-sizing: border-box; /* Asegura que el padding no sume ancho extra */
+            animation: blockAppear 0.8s ease-out forwards;
+        }
+
+        /* --- GRID HEADER 3 COLUMNAS --- */
+        .pilot-header-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .pilot-header-left {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .pilot-header-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+/*
+        .pilot-header-right {
+            /* Columna derecha vacía por ahora 
+        }*/
+
+
+        /* --- FORMATO DE TEXTOS SEGÚN IMÁGENES --- */
+
+        .content-bloq-faq-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5vh;
+            max-width: 35rem;           
+            margin: 0 auto;
+            padding: 4rem auto 3rem auto;        }
+
+        .content-bloq-faq-header .pilot-title {
+            font-size: clamp(3.5rem, 3.6vw, 4.5rem);
+            text-align: center;
+            width: 100%;
+            display: block;
+            margin: 0 auto 1vh auto;
+        }
+
+        .content-bloq-faq-header .pilot-intro {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+       
+        .pilot-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 50px;
+        }
+
+        .pilot-list li {
+            position: relative;
+            padding-left: 32px; /* ajustado para icono de 18px */
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .pilot-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.22em; /* ajustado para centrar mejor el icono de 18px */
+            width: 18px;
+            height: 18px;
+            background-image: url("img/Sparky blue4.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+
+        .pilot-list li:hover::before {
+            transform: scale(1.2);
+        }
+
+        /* --- ESTRUCTURA DE TABLA/GRID --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 220px 1fr; /* Columna izquierda fija para etiquetas */
+            gap: 30px;
+            margin-top: 50px;
+            border-top: 1px solid #0000FF;
+            padding-top: 50px;
+        }
+
+        .grid-label {
+            font-weight: 900;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            color: #333;
+        }    
+
+
+        /* ========== FAQ ========== */
+
+        .content-bloq-faq {
+            width: 100%;
+            max-width: 1600px;
+            margin: 8vh auto 6vh auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .block-faq {
+            border-radius: 22px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            animation: faqAppear 0.8s ease-out forwards;
+        }
+
+        @keyframes faqAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 22px 25px;
+            background: rgba(135, 128, 255, 0.70);
+            color: #000000;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: left;
+        
+            border: none;
+            border-radius: 22px;
+            cursor: pointer;
+        
+            display: block;
+        
+            transition:
+                background 0.3s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;        
+        }
+
+        .faq-question:active {
+            transform: scale(0.985);
+        }
+
+        .faq-question strong {
+            font-weight: 800;
+        }
+
+        .block-faq:hover .faq-question {
+            background: rgba(135, 128, 255, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .block-faq.active .faq-question {
+            background: rgba(135, 128, 255, 1);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            box-shadow: none;
+            transform: none;            
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+
+            background: rgba(135, 128, 255, 0.18);
+            color: #000000;
+
+            padding: 0 28px;
+
+            transition:
+                max-height 0.45s ease,
+                padding 0.35s ease,
+                opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .block-faq.active .faq-answer {
+            max-height: 500px;
+            padding: 22px 28px 25px 28px;
+            opacity: 1;
+        }
+
+        .block-faq.active:hover {
+            transform: translateY(-2px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .block-faq.active:hover .faq-question {
+            background: rgba(135, 128, 255,1);
+        }
+        .block-faq.active:hover .faq-answer {
+            background: rgba(135, 128, 255, 0.32);
+        }
+
+        .faq-answer p {
+            margin: 0 0 8px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .faq-answer p strong {
+            font-weight: 800;
+        }
+  
+
+        /* ========== MOBILE / TABLET: imagen de fondo móvil ========== */
+        @media (max-width: 900px) {
+            .tunnel-bg {
+                background-image: url("img/Honeypex-Background-Mobile.png");
+                background-position: center top;
+            }
+        }
+
+        /* ========== MOBILE PORTRAIT ========== */
+        @media (max-width: 768px) {
+            
+            /* Soberanía del viewport */
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+                max-width: 100vw;
+            }
+
+            /* Contenedor principal */
+            .global-site-container {
+                width: 92%;
+                padding: 0;
+            }
+
+            /* Bloque de contenido principal */
+            .content-block-pilot {
+                width: 100%;
+                max-width: 100%;
+                margin: 12vh auto 6vh auto;
+                padding: 2rem 5vw;
+                border-radius: 1.25rem;
+            }
+
+            /* Header grid a una columna */
+            .pilot-header-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .pilot-header-left,
+            .pilot-header-center {
+                justify-content: center;
+            }
+
+
+            /* Títulos centrados */
+            .content-bloq-faq-header .pilot-title {
+                font-size: clamp(1.8rem, 7vw, 2.5rem);
+                text-align: center;
+                width: 100%;
+                display: block;
+                padding: 0;
+                margin: 0 auto 1vh auto;
+            }
+
+            /* Intro y listas */
+            .content-bloq-faq-header .pilot-intro {
+                font-size: 1rem;
+                line-height: 1.5;
+                text-align: left;
+                margin-bottom: 25px;
+            }
+
+            .pilot-list {
+                margin-bottom: 30px;
+            }
+
+            .pilot-list li {
+                font-size: 0.95rem;
+                padding-left: 28px;
+                margin-bottom: 10px;
+            }
+
+            .pilot-list li::before {
+                width: 16px;
+                height: 16px;
+                top: 0.18em;
+            }
+
+            /* Grid container a una columna */
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-top: 30px;
+                padding-top: 30px;
+            }
+
+            .grid-label {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+
+            /* FAQ */
+            .content-bloq-faq {
+                margin: 6vh 0 2vh 0;
+                padding: 0 4vw;
+                gap: 15px;
+            }
+
+            .faq-question {
+                font-size: 1rem;
+                padding: 18px 20px;
+            }
+
+            .faq-answer {
+                padding: 0 20px;
+            }
+
+            .block-faq.active .faq-answer {
+                padding: 18px 20px 20px 20px;
+            }
+
+            .faq-answer p {
+                font-size: 0.95rem;
+            }
+
+
+        }
+
+        /* ========== MOBILE LANDSCAPE ========== */
+        @media (max-width: 900px) and (orientation: landscape) {
+            .global-site-container {
+                width: 92%;
+            }
+
+            .content-block-pilot {
+                padding: 2rem 4vw;
+                border-radius: 1.5rem;
+            }
+
+            .content-bloq-faq-header .pilot-title {
+                font-size: clamp(1.8rem, 4vw, 2.5rem);
+                margin: 0 auto 1vh auto;
+            }
+        }
+
+
+</style>
+
+
+</head>
+<body>
+
+    <div class="scroll-wrapper">
+    <div class="tunnel-bg"></div>
+
+    <header class="navbar">
+        <div class="logo-nav">
+            <a href="index.html">
+                <img src="img/Honeypex Logo Wisepex.png" alt="Logo Honeypex Wisepex" class="logo-nav-img">
+            </a>        
+        </div>
+        <div class="nav-links">
+            <div class="divider"></div>
+            <a href="index.html#leistung">LEISTUNG</a>            
+            <div class="divider"></div>
+            <a href="lebenszyklus.html">LEBENSZYKLUS</a>           
+            <div class="divider"></div>
+            <a href="uber-uns.html">ÜBER UNS</a>    
+        </div>
+    </header>
+
+    <div class="global-site-container">
+        <div class="content-block-pilot" id="#mehr">
+            
+            <div class="pilot-header-grid">
+                <div class="pilot-header-left">
+                    <img src="img/Projektlogo-single.png" alt="Projekt Logo" class="pilot-logo">
+                </div>
+                <div class="pilot-header-center">
+                    <h2 class="pilot-title">GEMEINSAM<br> IN DIE ZUKUNFT</h2>
+                </div>
+                <div class="pilot-header-right">
+                    <!-- Columna derecha vacía -->
+                </div>
+            </div>
+            
+            <p class="pilot-intro">
+                <span class="brand-name">honeype<span class="brand-x">x</span></span> entsteht mit denen, die es nutzen! Als Pilotkunde begleitest du <span class="brand-name">honeype<span class="brand-x">x</span></span> bereits vor dem offiziellen Marktstart und gestaltest aktiv die Weiterentwicklung mit. Durch die Nutzung in einem realen Umfeld erhalten wir gemeinsam wertvolle Erkenntnisse, können Funktionen frühzeitig optimieren und stellen sicher, dass <span class="brand-name">honeype<span class="brand-x">x</span></span> exakt auf die Anforderungen der Praxis ausgerichtet ist.
+            </p>
+            
+            
+            <div class="grid-container">
+                
+                <p style="font-size: 1.2rem"><strong>Deine Vorteile für eine aktive Mitarbeit:</strong></p>
+                <ul class="pilot-list">
+                    <li>Früher Zugang zu <span class="brand-name">honeype<span class="brand-x">x</span></span> Version 0.9</li>
+                    <li>Einfluss auf Funktionen und Prioritäten in der Entwicklung</li>
+                    <li>Direkter Austausch mit unserem Produktteam</li>
+                    <li>Wettbewerbsvorteil durch innovative digitale Prozesse</li>
+                    <li>Exklusive Konditionen für unsere Pilotkunden</li>
+                </ul>
+            </div>
+    
+            <div class="grid-container" style="margin-top: 30px;">
+                <div class="grid-label">DEIN BEITRAG</div>
+                <div>
+                    <ul class="pilot-list">
+                        <li>Produktiver Einsatz von <span class="brand-name">honeype<span class="brand-x">x</span></span> im Betriebsalltag</li>
+                        <li>Konstruktives und regelmäßiges Anwender-Feedback</li>
+                        <li>Einbringung von praktischen, realen Abläufen</li>
+                    </ul>
+                </div>
+    
+                <div class="grid-label">DEINE LEISTUNG</div>
+                <div>
+                    <ul class="pilot-list">
+                        <li>Benennung eines kleinen Kernteams (Ansprechpartner + 1 bis 3 Anwender)</li>
+                        <li>Teilnahme an regelmäßigen Review-Sessions (alle 2 bis 4 Wochen)</li>
+                        <li>Aktive Weitergabe von Problemen, Ideen und Optimierungsvorschlägen</li>
+                    </ul>
+                </div>
+    
+                <div class="grid-label">DEIN MEHRWERT</div>
+                <div>
+                    <ul class="pilot-list">
+                        <li>Früher Zugang zu honeypex und direkter Einfluss auf die Entwicklung</li>
+                        <li>Optimierte Passform der Lösung durch das Anwender-Feedbacks</li>
+                        <li>Exklusive Kostenvorteile:
+                            <ul class="pilot-list" style="margin-top: 10px; margin-left: 20px;">
+                                <li>Kostenfreie Nutzung in der Pilotphase</li>
+                                <li>50% Rabatt auf den gültigen Lizenzpreis für die ersten 12 Monate</li>
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="content-bloq-faq">
+                <div class="content-bloq-faq-header">
+
+                <h2 class="pilot-title">Du hast Fragen?</h2>
+
+                <p>Wir begleiten dich transparent durch jede Phase unseres gemeinsamen Projekts. Hier beantworten wir die häufigsten Fragen rund um unsere Leistungen und Arbeitsweise.</p>
+                </div>
+            
+                <div class="block-faq block-faq-1">
+                
+                    <button class="faq-question">
+                        Wie läuft ein typisches Projekt mit wisepx ab?
+                    </button>
+                
+                    <div class="faq-answer">
+                        <p>Wir starten mit einer Analyse deiner aktuellen Situation und definieren gemeinsam klare Ziele.</p>
+                        <p>Anschließend entwickeln wir ein maßgeschneidertes Konzept, setzen die Lösung um und begleiten dich bis zum stabilen laufenden Betrieb.</p>
+                    </div>
+                </div>
+            
+                <div class="block-faq block-faq-2">
+                
+                    <button class="faq-question">
+                        Arbeitet ihr auch mit bestehenden Systemen weiter?
+                    </button>
+                
+                    <div class="faq-answer">
+                        <p>Ja - wo immer sinnvoll, binden wir vorhandene Systeme ein.</p>
+                        <p>Nur dort, wo Technik veraltet oder unsicher ist, empfehlen wir Alternativen. So bleiben Kosten überschaubar und Prozesse stabil.</p>
+                    </div>            
+                </div>
+                
+                <div class="block-faq block-faq-3">
+                    
+                    <button class="faq-question">
+                        Wie stellt ihr sicher, dass ein Projekt im Zeit- und Budgetrahmen bleibt?
+                    </button>
+                    
+                    <div class="faq-answer">
+                        <p>Durch strukturiertes Projektmanagement, klare Meilensteine und regelmäßige Abstimmungen. Transparenz ist uns wichtig. Du weißt jederzeit, wo dein Projekt steht.</p>
+                    </div>
+                </div>
+                
+                <div class="block-faq block-faq-4">
+                    
+                    <button class="faq-question">
+                        Sind eure Lösungen skalierbar und zukunftssicher?
+                    </button>
+                    
+                    <div class="faq-answer">
+                        <p>Ja. Wir entwickeln Architektur und Software so, dass sie mit deinem Unternehmen wachsen können – technisch stabil, sicher und erweiterbar.</p>
+                    </div>
+                </div>
+                
+                <div class="block-faq block-faq-5">
+                    
+                    <button class="faq-question">
+                        Bietet ihr auch Support nach der Einführung an?
+                    </button>
+                    
+                    <div class="faq-answer">
+                        <p>Selbstverständlich. Wir unterstützen dich auf Wunsch langfristig mit Wartung, Monitoring und Weiterentwicklung – damit deine Lösung dauerhaft zuverlässig bleibt.</p>
+                    </div>
+                </div>
+            
+            </div>
+                            </div>
+                
+            
+            </div>                  
+        
+        </div>
+    </div><!-- .scroll-wrapper -->
+    <script>
+
+        // Scroll al top al cargar
+        window.onbeforeunload = function () { window.scrollTo(0, 0); };
+        window.onload = function () {
+            const wrapper = document.querySelector('.scroll-wrapper');
+            if (wrapper) wrapper.scrollTop = 0;
+            window.scrollTo(0, 0);
+        };
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+
+        // Navegación
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || !href.startsWith('#')) return;
+
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetSection = document.getElementById(targetId);
+                const wrapper = document.querySelector('.scroll-wrapper');
+                if (targetSection && wrapper) {
+                    wrapper.scrollTo({ top: targetSection.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+         
+
+        /*JS faq-question */
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+            
+                const clickedBlock = button.closest('.block-faq');
+                const allBlocks = document.querySelectorAll('.block-faq');
+                
+                allBlocks.forEach(block => {
+                    if (block !== clickedBlock) {
+                        block.classList.remove('active');
+                    }
+                });
+            
+                clickedBlock.classList.toggle('active');
+            });
+        });
+
+        window.addEventListener("load", function () {
+            if (window.location.hash) {
+              const target = document.querySelector(window.location.hash);
+              if (target) {
+                setTimeout(() => {
+                  target.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }
+            }
+          });
+
+    </script>
+</body>
+</html>

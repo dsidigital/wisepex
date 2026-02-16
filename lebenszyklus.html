@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#dfeaff">
+    <title>Honeypex - Interface</title>
+    <style>
+      
+      html, body {
+        background-color: #dfeaff;
+      }
+      
+      .brand-name {
+        font-weight: bolder;
+      }
+      
+      .brand-x {
+        color: #0000ff;
+        font-weight: bolder;
+      }
+    </style>
+<!-- Preload del background para evitar "flash" y mejorar LCP -->
+
+    <link rel="preload" as="image" href="img/Honeypex Background.png" fetchpriority="high">
+    <link rel="preload" as="image" href="img/Honeypex-Background-Mobile.png" media="(max-width: 900px)" fetchpriority="high">
+      
+    <style>
+      /* ===== VARIABLES ===== */
+
+      :root {
+        --neon-blue: #1304ea;
+        --neon-purple: #8137ff;
+        --logo-width-desktop: 35vw;
+        --content-gap-bottom: 12vh;
+      }
+
+      /* ===== RESET UNIVERSAL ===== */
+      
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+
+      /* ===== BASE ===== */
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+        background-color: #dfeaff;
+      }
+
+      body {
+        background: transparent;
+      }
+
+      /* ===== SCROLL WRAPPER (maneja el scroll de toda la página) ===== */
+      .scroll-wrapper {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        position: relative;
+        scrollbar-width: auto;
+        scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+      }
+
+      .scroll-wrapper::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .scroll-wrapper::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .scroll-wrapper::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+      }
+
+      .scroll-wrapper::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      
+      /* ===== BACKGROUND ===== */
+      .tunnel-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;               /* Safari dynamic viewport */
+        background-image: url("img/Honeypex Background.png");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed  ELIMINADO — el div ya es position:fixed,
+           y esta propiedad rompe el fondo en Safari iOS */
+        z-index: 0;
+        pointer-events: none;
+        -webkit-transform: translateZ(0);  /* fuerza composición GPU en Safari */
+        transform: translateZ(0);
+      }
+
+      
+      /* ===== CONTAINER ===== */
+      .global-site-container {
+        position: relative;
+        z-index: 2;
+        width: 92%;
+        max-width: 112.5rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+           
+      /* ===== NAVBAR ===== */
+      .navbar {
+        position: fixed;
+        top: 2vh;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #000;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        padding: 1vh 4vw;
+        z-index: 1000;
+        border: 1px solid #333;
+        width: 92%;
+        max-width: 92vw;
+        justify-content: space-between;
+        box-sizing: border-box;
+      }
+
+      .logo-nav {
+        font-weight: bold;
+        color: white;
+        font-size: clamp(1rem, 3vw, 1.5rem);
+        display: flex;
+        align-items: center;
+      }
+      .logo-nav span { color: var(--neon-purple); margin-left: 2px; }
+
+      .logo-nav-img {
+        width: clamp(7rem, 12vw, 10rem);
+        object-fit: contain;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.8rem, 2.5vw, 2rem);
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: clamp(0.65rem, 1.8vw, 0.9rem);
+        letter-spacing: 0.05em;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover { color: var(--neon-blue); }
+
+      .divider {
+        display: none;
+      }
+
+      /* ========== NAVBAR - UMFRAGE ========== */
+
+      .navbar-umfrage {
+        position: fixed;
+        left: 50%;
+        bottom: 2vh;
+        background-color: #000;
+        border-radius: 3em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5vh 1.5vw;
+        z-index: 1000;
+        border: 1px solid #333;
+        width: 92%;
+        max-width: 36vw;
+        min-width: 18rem;
+        box-sizing: border-box;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s, transform 0.5s;
+        transform: translate(-50%, 24px);
+      }
+
+      .navbar-umfrage.visible {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+      }
+
+      .nav-links-umfrage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        gap: 1.5vw;
+      }
+
+      .nav-links-umfrage a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: clamp(0.65rem, 1.8vw, 0.9rem);
+        letter-spacing: 0.05em;
+        transition: color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-links-umfrage a:hover {
+        color: var(--neon-blue);
+      }
+
+      .navbar-umfrage .divider-umfrage {
+        display: feature;
+        width: 1px;
+        min-width: 1px;
+        height: 3vh;
+        background-color: var(--neon-blue);
+        opacity: 1;
+        flex-shrink: 0;
+      }
+            
+      /* ===== CONTENT feature ===== */
+      .content-feature-pilot {
+        background: rgba(255,255,255,0.3);
+        backdrop-filter: blur(0.1875rem);
+        width: 100%;
+        max-width: 90vw;
+        margin: 18vh auto 12vh;
+        padding: 4.5rem;
+        border-radius: 1.875rem;
+        border: 0.0625rem solid rgba(255,255,255,0.35);
+        box-sizing: border-box;
+        -webkit-backdrop-filter: blur(0.1875rem);
+      }
+            
+      /* ===== HEADER GRID ===== */
+      .pilot-header-grid {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        align-items: center;
+        gap: 1.25rem;
+        margin-bottom: 1.25rem;
+      }
+      
+      .pilot-logo {
+        width: 13rem;
+        object-fit: contain;
+      }
+      
+      .pilot-title {
+        font-size: clamp(3.5rem, 3.6vw, 4.5rem);
+        text-transform: uppercase;
+        text-align: center;
+        color: #0000ff;
+        width: 100%;
+        display: feature;
+        margin: 0 auto;
+      }
+      
+      /* ===== CONTACT ===== */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6vw;
+        margin: 6vh auto;
+        padding: 6vh 8vw;
+      }
+      
+      .contact-feature h3 {
+        font-size: 1.4rem;
+        text-align: center;
+        color: #0000ff;
+      }
+      
+      .contact-feature p {
+        font-size: 1rem;
+        font-weight: bold;
+        text-align: center;
+      }
+      
+      /* ===== DIVIDERS ===== */
+      .divider-line {
+        width: 80%;
+        height: 0.09375rem;
+        background-color: #0000ff;
+        margin: 10vh auto;
+      }
+      
+/* ========== IMPRESSUM GRID ========== */
+
+    .legal-section {
+      margin: 6vh auto;
+      padding: 0;            /* ✅ eliminar padding extra */
+      max-width: 100%;
+    }
+
+    .legal-title {
+      font-size: clamp(3.5rem, 3.6vw, 4.5rem);
+      font-weight: 400;
+      margin: 0 auto;
+      text-transform: uppercase;
+      line-height: 1.2;
+      text-align: center;
+      color: #0000FF;
+      width: 100%;
+      display: feature;
+      box-sizing: border-box;
+      padding-inline: 0.5vw;
+      overflow-wrap: anywhere;
+    }
+    
+    .legal-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 6vh auto;
+      padding: 0;            /* ✅ eliminar padding */
+      gap: 4vw;
+    }
+    
+    .legal-feature {
+      margin: 6vh auto;
+      padding: 0;            /* ✅ eliminar padding */
+      max-width: 100%;
+    }
+
+    .legal-col h3 {
+      margin: 0 0 1vh 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-align: center;
+      color: #0000FF;
+    }
+    
+    .legal-feature h3 {
+      font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+      font-weight: 300;
+      margin: 0 auto;
+      text-transform: uppercase;
+      line-height: 1.2;
+      text-align: center;
+      color: #0000FF;
+      width: 100%;
+      display: feature;
+      box-sizing: border-box;
+      padding-inline: 0.5vw;
+      overflow-wrap: anywhere;
+    }
+    
+    .legal-col p {
+      margin: 0.6vh 0;
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--text-dark);
+      text-decoration: none;
+      text-align: center;
+    }
+    
+    .legal-divider {
+      width: 100%;
+      height: 0.15rem;
+      background-color: var(--blue-neon);
+      margin: 5vh 0;
+    }
+
+    .legal-feature p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-dark);
+      margin-bottom: 1.6vh;
+      max-width: 100%;
+      text-align: left;
+    }
+    
+    .capital-parrafo {
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .tunnel-bg {
+        background-image: url("img/Honeypex-Background-Mobile.png");
+        background-position: center top;
+      }
+    }
+
+    @media (min-width: 1920px) {
+      .tunnel-bg {
+        background-size: cover;
+        background-position: center center;
+      }
+    }
+
+    /* ===== MOBILE & TABLET LANDSCAPE ===== */
+    @media (orientation: landscape) and (max-width: 1024px) {
+    
+    /* Altura real del viewport (Safari / Chrome móvil) */
+      body {
+        min-height: 100dvh;
+      }
+
+      /* Background estable */
+      .tunnel-bg {
+        height: 100dvh;
+        background-position: center center;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+
+      /* Contenedor landscape */
+      .global-site-container {
+        width: 92%;
+      }
+
+      /* Contenido principal */
+      .content-feature-pilot {
+        margin-top: 20vh;
+        padding: 3rem 3vw;
+        border-radius: 1.5rem;
+      }
+
+      @media (max-width: 1024px) {
+        .divider-line {
+          width: 100%;
+          max-width: 80%;
+        }
+      }
+
+
+      /* Grids: evitar aplastamiento horizontal */
+      .pilot-header-grid {
+        grid-template-columns: 1fr 1.5fr 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4vw;
+        padding: 4vh 2vw;
+      }
+
+      /* Secciones legales */
+      .legal-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0;
+      }
+
+      .legal-feature {
+        padding: 0;
+      }
+
+    }
+
+    /* ===== MOBILE PORTRAIT ===== */
+    @media (max-width: 768px) {
+      
+      /* Soberanía del viewport */
+      html, body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+      }
+
+      /* Navbar superior centrada */
+      .navbar {
+        width: 92%;
+        max-width: 92%;
+        padding: 1vh 3vw;
+      }
+
+      .logo-nav-img {
+        width: clamp(6rem, 16vw, 8rem);
+      }
+
+      .nav-links {
+        gap: clamp(0.6rem, 3vw, 1rem);
+      }
+
+      .nav-links a {
+        font-size: clamp(0.6rem, 2.2vw, 0.75rem);
+      }
+
+      /* Contenedor principal */
+      .global-site-container {
+        width: 92%;
+        padding: 0;
+      }
+
+      /* Bloque de contenido */
+      .content-feature-pilot {
+        width: 100%;
+        max-width: 100%;
+        margin: 12vh auto 10rem auto;
+        padding: 2rem 5vw;
+        border-radius: 1.25rem;
+      }
+
+      /* Header grid a una columna */
+      .pilot-header-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .pilot-header-left,
+      .pilot-header-center {
+        justify-content: center;
+      }
+
+      .pilot-logo {
+        width: 160px;
+        margin: 0 auto;
+      }
+
+      /* Títulos centrados absolutamente */
+      .pilot-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        text-align: center;
+        width: 100%;
+        display: feature;
+        padding: 0;
+        margin: 0 auto;
+      }
+
+      .legal-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        text-align: center;
+        width: 100%;
+        display: feature;
+        padding: 0 0.5vw;
+        margin: 0 auto;
+        overflow-wrap: anywhere;
+      }
+
+      /* Grid de contacto a una columna */
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3vh;
+        padding: 4vh 8vw;
+      }
+
+      /* Sección legal con padding proporcional */
+      .legal-section {
+        margin: 4vh 0;
+        padding: 0;
+      }
+
+      /* Legal grid a una columna */
+      .legal-grid-4 {
+        grid-template-columns: 1fr;
+        padding: 0;
+        gap: 3vh;
+      }
+
+      /* Bloques legales con texto alineado a la izquierda */
+      .legal-feature {
+        padding: 0;
+        margin: 4vh 0;
+      }
+
+      .legal-feature p,
+      .legal-feature ul {
+        text-align: left;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .legal-col h3 {
+        text-align: center;
+        font-size: 1.1rem;
+      }
+
+      .legal-col p {
+        text-align: center;
+        font-size: 0.95rem;
+      }
+
+      .legal-feature h3 {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 0.5vw;
+        overflow-wrap: anywhere;
+      }
+
+      /* Líneas divisorias */
+      .divider-line {
+        width: 84vw;
+        margin: 6vh auto;
+      }
+
+      /* Footer navbar */
+      .navbar-umfrage {
+        width: 92%;
+        max-width: 92%;
+        min-width: unset;
+      }
+    }
+
+    @media (orientation: landscape) and (hover: none) {
+      .tunnel-bg {
+        transform: translate3d(0,0,0);
+      }
+    }
+
+    /* ===== OPTIMIZACIÓN MÓVILES ===== */
+    @media (hover: none) {
+      .tunnel-bg {
+        will-change: auto;
+      }
+    }
+
+    /* Navbar superior: centrado consistente en movil/tablet */
+    /* ===== TABLET (768px - 1023px) ===== */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .navbar {
+        width: 92%;
+        max-width: 92%;
+        padding: 1.2vh 3vw;
+      }
+
+      .navbar-umfrage {
+        width: 92%;
+        max-width: 70%;
+        padding: 1vh 2vw;
+      }
+
+      .divider {
+        display: feature;
+        width: 1px;
+        min-width: 1px;
+        height: 3vh;
+        background-color: #0044ff;
+      }
+
+      .navbar-umfrage .divider-umfrage {
+        display: feature;
+        width: 1px;
+        min-width: 1px;
+        height: 2.5vh;
+        background-color: #0044ff;
+      }
+    }
+
+    /* ===== DESKTOP/LAPTOP (1024px+) ===== */
+    @media (min-width: 1024px) {
+      .navbar {
+        width: auto;
+        max-width: 1000px;
+        padding: 1.2vh 2.5vw;
+        top: 3vh;
+      }
+
+      .navbar-umfrage {
+        width: auto;
+        max-width: 800px;
+        padding: 1vh 2vw;
+        bottom: 3vh;
+      }
+
+      .nav-links, .nav-links-umfrage {
+        gap: 2vw;
+      }
+
+      .divider {
+        display: feature;
+        width: 1px;
+        min-width: 1px;
+        height: 3vh;
+        background-color: #0044ff;
+      }
+
+      .navbar-umfrage .divider-umfrage {
+        width: 1px;
+        min-width: 1px;
+        height: 2.5vh;
+      }
+
+      .logo-nav {
+        margin-right: 2.5vw;
+      }
+    }
+
+    /* ===== 4K & ULTRA-WIDE (1920px+) ===== */
+    @media (min-width: 1920px) {
+      .navbar {
+        max-width: 1400px;
+      }
+
+      .navbar-umfrage {
+        max-width: 1200px;
+      }
+
+      .navbar-umfrage .divider-umfrage {
+        width: 1px;
+        min-width: 1px;
+      }
+    }
+
+    /* ===== Navbar centering (movil/tablet) ===== */
+    @media (max-width: 1023px) {
+      .navbar {
+        justify-content: center;
+        gap: clamp(0.5rem, 2vw, 1.2rem);
+      }
+
+      .logo-nav {
+        margin-right: 0;
+        flex-shrink: 0;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: clamp(0.55rem, 2.4vw, 1rem);
+      }
+
+      .nav-links .divider {
+        display: feature;
+        width: 1px;
+        min-width: 1px;
+        height: 2.4vh;
+        background-color: #0044ff;
+        flex-shrink: 0;
+      }
+
+      .navbar-umfrage {
+        width: 82%;
+        max-width: 28rem;
+        min-width: unset;
+      }
+    }
+
+    .divider-line {
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
+    }
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="tunnel-bg"></div>
+
+    <header class="navbar">
+        <div class="logo-nav">
+            <a href="index.html">
+                <img src="img/Honeypex Logo Wisepex.png" alt="Logo Honeypex Wisepex" class="logo-nav-img">
+            </a>            
+        </div>
+        <div class="nav-links">
+            <div class="divider"></div>
+            <a href="index.html#features">FEATURES</a>            
+            <div class="divider"></div>
+            <a href="index.html#umfrage">UMFRAGE</a>            
+            <div class="divider"></div>
+            <a href="mehr.html">MEHR</a>        
+          </div>
+    </header>
+
+    <div class="scroll-wrapper">
+    <section class="global-site-container">
+        <div class="content-feature-pilot" id="kontakt">
+            
+            <div class="pilot-header-grid">
+                <div class="pilot-header-left">
+                    <img src="img/Projektlogo-single.png" alt="Projekt Logo" class="pilot-logo">
+                </div>
+                <div class="pilot-header-center">
+                    <h2 class="pilot-title">KONTAKT</h2>
+                </div>
+                <div class="pilot-header-right">
+                    <!-- Columna derecha vacía -->
+                </div>
+            </div>
+
+            <div class="contact-grid">
+            
+              <div class="contact-feature">
+                <h3>ZENTRALE</h3>
+                <p>wisepex digital solutions GmbH</p>
+                <p>Baumbreite 19</p>
+                <p>49170 Hagen a.T.W.</p>
+                <p>Germany</p>
+              </div>
+          
+              <div class="contact-feature">
+                <h3>Telefon</h3>
+                <p>+49 (0)5401 – 836 94 74</p>
+              </div>
+          
+              <div class="contact-feature">
+                <h3>E-Mail</h3>
+                <p>hello@wisepex.com</p>
+              </div>
+          
+            </div>
+        
+            <div class="divider-line"></div>
+
+            <div class="legal-section">
+
+                <div class="legal-title" id ="impressum" style="margin-top: 10vh; padding-top: 10vh;">IMPRESSUM</div>
+
+                <div class="legal-grid-4">
+                  <div class="legal-col">
+                    <h3>ZENTRALE</h3>
+                    <p>wisepex digital solutions GmbH</p>
+                    <p>Baumbreite 19</p>
+                    <p>49170 Hagen a.T.W.</p>
+                    <p>Germany</p>
+                  </div>
+              
+                  <div class="legal-col">
+                    <h3>Geschäftsführer</h3>
+                    <p>Philipp Hock</p>
+                    <p>Dennis Schlinge</p>
+                  </div>
+              
+                  <div class="legal-col">
+                    <h3>HANDELSREGISTER</h3>
+                    <p>Amtsgericht Osnabrück</p>
+                    <p>HRB 221893</p>
+                  </div>
+              
+                  <div class="legal-col">
+                    <h3>UST-ID</h3>
+                    <p>DE455706546</p>
+                  </div>
+                </div>
+            <div class="divider-line"></div>
+            
+            <div class="legal-feature">
+              <h3>HAFTUNGSAUSSCHLUSS</h3>
+              <p>
+                Als Dienstanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen
+                Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Dienstanbieter jedoch nicht verpflichtet,
+                übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen,
+                die auf eine rechtswidrige Tätigkeit hinweisen.
+              </p>
+              <p>
+                Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen
+                bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis
+                einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen
+                werden wir diese Inhalte umgehend entfernen.
+              </p>
+            </div>
+        
+            <div class="divider-line"></div>
+        
+            <div class="legal-feature">
+              <h3>HAFTUNG FÜR LINKS</h3>
+              <p>
+                Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
+                Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
+                verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+              </p>
+            </div>
+        
+            <div class="divider-line"></div>
+
+            <div class="legal-feature legal-feature1" id="datenschutz" style="margin-top: 10vh; padding-top: 10vh;">
+              <div class="legal-title">DATENSCHUTZERKLÄRUNG</div>
+                      
+                <p><strong>1) Einleitung und Kontaktdaten des Verantwortlichen</strong></p>
+            
+                <p>
+                  <strong>1.1</strong> Wir freuen uns, dass Sie unsere Website besuchen und bedanken uns für Ihr Interesse.
+                  Im Folgenden informieren wir Sie über den Umgang mit Ihren personenbezogenen Daten bei der Nutzung
+                  unserer Website. Personenbezogene Daten sind hierbei alle Daten, mit denen Sie persönlich identifiziert
+                  werden können.
+                </p>
+            
+                <p>
+                  <strong>1.2</strong> Verantwortlicher für die Datenverarbeitung auf dieser Website im Sinne der
+                  Datenschutz-Grundverordnung (DSGVO) ist
+                </p>
+            
+                <p>
+                  wisepex GmbH<br>
+                  Baumbreite 19<br>
+                  49170 Hagen a.T.W.<br>
+                  Deutschland, Tel.: +49 5401 - 836 94 74<br>
+                  E-Mail: hello@wisepex.com
+                </p>
+            
+                <p>
+                  Der für die Verarbeitung von personenbezogenen Daten Verantwortliche ist diejenige natürliche oder
+                  juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung
+                  von personenbezogenen Daten entscheidet.
+                </p>
+              </div>
+
+              <div class="legal-feature legal-feature2">
+                <p><strong>2) Datenerfassung beim Besuch unserer Website</strong></p>
+            
+                <p>
+                  <strong>2.1</strong> Bei der bloß informatorischen Nutzung unserer Website, also wenn Sie sich nicht registrieren oder
+                  uns anderweitig Informationen übermitteln, erheben wir nur solche Daten, die Ihr Browser an den
+                  Seitenserver übermittelt (sog. „Server-Logfiles“). Wenn Sie unsere Website aufrufen, erheben wir die
+                  folgenden Daten, die für uns technisch erforderlich sind, um Ihnen die Website anzuzeigen:
+                </p>
+            
+                <ul style="text-align: left;">
+                  <li>Unsere besuchte Website</li>
+                  <li>Datum und Uhrzeit zum Zeitpunkt des Zugriffes</li>
+                  <li>Menge der gesendeten Daten in Byte</li>
+                  <li>Quelle/Verweis, von welchem Sie auf die Seite gelangten</li>
+                  <li>Verwendeter Browser</li>
+                  <li>Verwendetes Betriebssystem</li>
+                  <li>Verwendete IP-Adresse (ggf.: in anonymisierter Form)</li>
+                </ul>
+            
+                <p>
+                  Die Verarbeitung erfolgt gemäß Art. 6 Abs. 1 lit. f DSGVO auf Basis unseres berechtigten Interesses an
+                  der Verbesserung der Stabilität und Funktionalität unserer Website. Eine Weitergabe oder anderweitige
+                  Verwendung der Daten findet nicht statt. Wir behalten uns allerdings vor, die Server-Logfiles
+                  nachträglich zu überprüfen, sollten konkrete Anhaltspunkte auf eine rechtswidrige Nutzung hinweisen.
+                </p>
+            
+                <p>
+                  <strong>2.2</strong> Diese Website nutzt aus Sicherheitsgründen und zum Schutz der Übertragung personenbezogener Daten
+                  und anderer vertraulicher Inhalte (z.B. Bestellungen oder Anfragen an den Verantwortlichen) eine
+                  SSL- bzw. TLS-Verschlüsselung. Sie können eine verschlüsselte Verbindung an der Zeichenfolge „https://“
+                  und dem Schloss-Symbol in Ihrer Browserzeile erkennen.
+                </p>
+              </div>
+
+              <div class="legal-feature legal-feature3">
+
+                <p><strong>3) Hosting & Content-Delivery-Network</strong></p>
+            
+                <p>
+                  <strong>3.1</strong> Für das Hosting unserer Website und die Darstellung der Seiteninhalte nutzen wir einen
+                  Anbieter, der seine Leistungen selbst oder durch ausgewählte Sub-Unternehmer ausschließlich auf
+                  Servern innerhalb der Europäischen Union erbringt.
+                </p>
+            
+                <p>
+                  Sämtliche auf unserer Website erhobenen Daten werden auf diesen Servern verarbeitet.
+                </p>
+            
+                <p>
+                  Wir haben mit dem Anbieter einen Auftragsverarbeitungsvertrag geschlossen, der den Schutz der Daten
+                  unserer Seitenbesucher sicherstellt und eine unberechtigte Weitergabe an Dritte untersagt.
+                </p>
+            
+                <p><strong>3.2</strong> Cloudflare</p>
+            
+                <p>
+                  Wir nutzen ein Content Delivery Network des folgenden Anbieters: Cloudflare Inc., 101 Townsend St.,
+                  San Francisco, CA 94107, USA
+                </p>
+            
+                <p>
+                  Dieser Dienst ermöglicht uns, große Mediendateien wie Grafiken, Seiteninhalte oder Skripte über ein Netz
+                  regional verteilter Server schneller auszuliefern. Die Verarbeitung erfolgt zur Wahrung unseres
+                  berechtigten Interesses an der Verbesserung der Stabilität und Funktionalität unserer Website gem.
+                  Art. 6 Abs. 1 lit. f DSGVO. Wir haben mit dem Anbieter einen Auftragsverarbeitungsvertrag geschlossen,
+                  der den Schutz der Daten unserer Seitenbesucher sicherstellt und eine unberechtigte Weitergabe an
+                  Dritte untersagt.
+                </p>
+            
+                <p>
+                  Für Datenübermittlungen in die USA hat sich der Anbieter dem EU-US-Datenschutzrahmen
+                  (EU-US Data Privacy Framework) angeschlossen, das auf Basis eines Angemessenheitsbeschlusses der
+                  Europäischen Kommission die Einhaltung des europäischen Datenschutzniveaus sicherstellt.
+                </p>
+            
+              </div>
+
+              <div class="legal-feature legal-feature4">
+
+                <p><strong>4) Kontaktaufnahme</strong></p>
+            
+                <p>
+                  Im Rahmen der Kontaktaufnahme mit uns (z.B. per Kontaktformular oder E-Mail) werden personenbezogene
+                  Daten erhoben. Welche Daten im Falle der Nutzung eines Kontaktformulars erhoben werden, ist aus dem
+                  jeweiligen Kontaktformular ersichtlich. Diese Daten werden ausschließlich zum Zweck der Beantwortung
+                  Ihres Anliegens bzw. für die Kontaktaufnahme und die damit verbundene technische Administration
+                  gespeichert und verwendet.
+                </p>
+            
+                <p>
+                  Rechtsgrundlage für die Verarbeitung dieser Daten ist unser berechtigtes Interesse an der Beantwortung
+                  Ihres Anliegens gemäß Art. 6 Abs. 1 lit. f DSGVO. Zielt Ihre Kontaktierung auf den Abschluss eines
+                  Vertrages ab, so ist zusätzliche Rechtsgrundlage für die Verarbeitung Art. 6 Abs. 1 lit. b DSGVO.
+                  Ihre Daten werden nach abschließender Bearbeitung Ihrer Anfrage gelöscht. Dies ist der Fall, wenn sich
+                  aus den Umständen entnehmen lässt, dass der betroffene Sachverhalt abschließend geklärt ist und sofern
+                  keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+                </p>
+            
+              </div>
+
+
+              <div class="legal-feature legal-feature5">
+            
+                <p><strong>5) Seitenfunktionalitäten</strong></p>
+            
+                <p>
+                  Google Maps
+                </p>
+            
+                <p>
+                  Diese Website nutzt einen Online-Kartendienst des folgenden Anbieters: Google Maps (API) von Google
+                  Ireland Limited, Gordon House, 4 Barrow St, Dublin, D04 E5W5, Irland („Google“).
+                </p>
+            
+                <p>
+                  Google Maps ist ein Webdienst zur Darstellung von interaktiven (Land-)Karten, um geographische
+                  Informationen visuell darzustellen. Über die Nutzung dieses Dienstes wird Ihnen unser Standort
+                  angezeigt und eine etwaige Anfahrt erleichtert.
+                </p>
+            
+                <p>
+                  Bereits beim Aufrufen derjenigen Unterseiten, in die die Karte von Google Maps eingebunden ist, werden
+                  Informationen über Ihre Nutzung unserer Website (wie z.B. Ihre IP-Adresse) an Server von Google
+                  übertragen und dort gespeichert, hierbei kann es auch zu einer Übermittlung an die Server der Google
+                  LLC. in den USA kommen. Dies erfolgt unabhängig davon, ob Google ein Nutzerkonto bereitstellt, über
+                  das Sie eingeloggt sind oder ob ein Nutzerkonto besteht. Wenn Sie bei Google eingeloggt sind, werden
+                  Ihre Daten direkt Ihrem Konto zugeordnet. Wenn Sie die Zuordnung mit Ihrem Profil bei Google nicht
+                  wünschen, müssen Sie sich vor Aktivierung des Buttons ausloggen. Google speichert Ihre Daten (selbst
+                  für nicht eingeloggte Nutzer) als Nutzungsprofile und wertet diese aus.
+                </p>
+            
+              </div>
+          
+              <div class="legal-feature legal-feature6">
+
+                <p><strong>6) Rechte des Betroffenen</strong></p>
+            
+                <p>
+                  <strong>6.1</strong> Das geltende Datenschutzrecht gewährt Ihnen gegenüber dem Verantwortlichen hinsichtlich
+                  der Verarbeitung Ihrer personenbezogenen Daten die nachstehenden Betroffenenrechte (Auskunfts- und
+                  Interventionsrechte), wobei für die jeweiligen Ausübungsvoraussetzungen auf die angeführte
+                  Rechtsgrundlage verwiesen wird:
+                </p>
+            
+                <ul style="text-align: left;">
+                    <li>Auskunftsrecht gemäß Art. 15 DSGVO;</li>
+                    <li>Recht auf Berichtigung gemäß Art. 16 DSGVO;</li>
+                    <li>Recht auf Löschung gemäß Art. 17 DSGVO;</li>
+                    <li>Recht auf Einschränkung der Verarbeitung gemäß Art. 18 DSGVO;</li>
+                    <li>Recht auf Unterrichtung gemäß Art. 19 DSGVO;</li>
+                    <li>Recht auf Datenübertragbarkeit gemäß Art. 20 DSGVO;</li>
+                    <li>Recht auf Widerruf erteilter Einwilligungen gemäß Art. 7 Abs. 3 DSGVO;</li>
+                    <li>Recht auf Beschwerde gemäß Art. 77 DSGVO.</li>
+                </ul>
+            
+                <p class="capital-parrafo">
+                  <strong>6.2</strong> Widerspruchsrecht<br>
+                  Wenn wir im Rahmen einer Interessenabwägung Ihre personenbezogenen Daten aufgrund unseres überwiegenden
+                  berechtigten Interesses verarbeiten, haben Sie das jederzeitige Recht, aus Gründen, die sich aus Ihrer
+                  besonderen Situation ergeben, gegen diese Verarbeitung Widerspruch mit Wirkung für die Zukunft
+                  einzulegen.
+                </p>
+            
+                <p class="capital-parrafo">
+                  Machen Sie von Ihrem Widerspruchsrecht Gebrauch, beenden wir die Verarbeitung der betroffenen Daten.
+                  Eine Weiterverarbeitung bleibt aber vorbehalten, wenn wir zwingende schutzwürdige Gründe für die
+                  Verarbeitung nachweisen können, die Ihre Interessen, Grundrechte und Grundfreiheiten überwiegen, oder
+                  wenn die Verarbeitung der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen dient.
+                </p>
+            
+                <p class="capital-parrafo">
+                  Werden Ihre personenbezogenen Daten von uns verarbeitet, um Direktwerbung zu betreiben, haben Sie das
+                  Recht, jederzeit Widerspruch gegen die Verarbeitung Sie betreffender personenbezogener Daten zum Zwecke
+                  derartiger Werbung einzulegen. Sie können den Widerspruch wie oben beschrieben ausüben.
+                </p>
+            
+                <p class="capital-parrafo">
+                  Machen Sie von Ihrem Widerspruchsrecht Gebrauch, beenden wir die Verarbeitung der betroffenen Daten zu
+                  Direktwerbezwecken.
+                </p>
+            
+              </div>
+
+
+              <div class="legal-feature legal-feature7">
+            
+                <p><strong>7) Dauer der Speicherung personenbezogener Daten</strong></p>
+            
+                <p>
+                  Die Dauer der Speicherung von personenbezogenen Daten bemisst sich anhand der jeweiligen
+                  Rechtsgrundlage, am Verarbeitungszweck und – sofern einschlägig – zusätzlich anhand der jeweiligen
+                  gesetzlichen Aufbewahrungsfrist (z.B. handels- und steuerrechtliche Aufbewahrungsfristen).
+                </p>
+            
+                <p>
+                  Bei der Verarbeitung von personenbezogenen Daten auf Grundlage einer ausdrücklichen Einwilligung gemäß
+                  Art. 6 Abs. 1 lit. a DSGVO werden die betroffenen Daten so lange gespeichert, bis Sie Ihre Einwilligung
+                  widerrufen.
+                </p>
+            
+                <p>
+                  Existieren gesetzliche Aufbewahrungsfristen für Daten, die im Rahmen rechtsgeschäftlicher bzw.
+                  rechtsgeschäftsähnlicher Verpflichtungen auf der Grundlage von Art. 6 Abs. 1 lit. b DSGVO verarbeitet
+                  werden, werden diese Daten nach Ablauf der Aufbewahrungsfristen routinemäßig gelöscht, sofern sie nicht
+                  mehr zur Vertragserfüllung oder Vertragsanbahnung erforderlich sind und/oder unsererseits kein
+                  berechtigtes Interesse an der Weiterspeicherung fortbesteht.
+                </p>
+            
+                <p>
+                  Bei der Verarbeitung von personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO werden
+                  diese Daten so lange gespeichert, bis Sie Ihr Widerspruchsrecht nach Art. 21 Abs. 1 DSGVO ausüben, es
+                  sei denn, wir können zwingende schutzwürdige Gründe für die Verarbeitung nachweisen, die Ihre
+                  Interessen, Rechte und Freiheiten überwiegen, oder die Verarbeitung dient der Geltendmachung,
+                  Ausübung oder Verteidigung von Rechtsansprüchen.
+                </p>
+            
+                <p>
+                  Bei der Verarbeitung von personenbezogenen Daten zum Zwecke der Direktwerbung auf Grundlage von
+                  Art. 6 Abs. 1 lit. f DSGVO werden diese Daten so lange gespeichert, bis Sie Ihr Widerspruchsrecht nach
+                  Art. 21 Abs. 2 DSGVO ausüben.
+                </p>
+            
+                <p>
+                  Sofern sich aus den sonstigen Informationen dieser Erklärung über spezifische Verarbeitungssituationen
+                  nichts anderes ergibt, werden gespeicherte personenbezogene Daten im Übrigen dann gelöscht, wenn sie
+                  für die Zwecke, für die sie erhoben oder auf sonstige Weise verarbeitet wurden, nicht mehr notwendig
+                  sind.
+                </p>
+            
+            </div>          
+
+    </section>
+
+    <footer class="navbar-umfrage">
+        <div class="nav-links-umfrage">
+          <a href="kontakt.html">KONTAKT</a>            
+          <div class="divider-umfrage"></div>
+          <a href="#datenschutz">DATENSCHUTZ</a>            
+          <div class="divider-umfrage"></div>
+          <a href="#impressum">IMPRESSUM</a>          
+        </div>
+    </footer>
+    </div><!-- .scroll-wrapper -->
+
+    <script>
+
+        // Scroll al top al cargar
+        window.onbeforeunload = function () { window.scrollTo(0, 0); };
+        window.onload = function () {
+            const wrapper = document.querySelector('.scroll-wrapper');
+            if (wrapper) wrapper.scrollTop = 0;
+            window.scrollTo(0, 0);
+        };
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+
+        // Navegación
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || !href.startsWith('#')) return;
+
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetSection = document.getElementById(targetId);
+                const wrapper = document.querySelector('.scroll-wrapper');
+                if (targetSection && wrapper) {
+                    wrapper.scrollTo({ top: targetSection.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+
+        /*JS navbar-umfrage */
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const globalSiteContainer = document.querySelector('.global-site-container');
+            const navUmfrage = document.querySelector('.navbar-umfrage');
+
+            if (!globalSiteContainer || !navUmfrage) return;
+
+            // Mostrar navbar-umfrage SOLO cuando llegamos al final del contenido principal
+            const wrapper = document.querySelector('.scroll-wrapper');
+            function checkScroll() {
+                if (!wrapper) return;
+                const scrollPosition = wrapper.scrollTop + wrapper.clientHeight;
+                const scrollHeight = wrapper.scrollHeight;
+
+                if (scrollHeight - scrollPosition < 120) {
+                    navUmfrage.classList.add('visible');
+                } else {
+                    navUmfrage.classList.remove('visible');
+                }
+            }
+
+            if (wrapper) wrapper.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            // Ejecutar una vez al inicio por si ya estamos abajo
+            checkScroll();
+        });
+
+        window.addEventListener("load", function () {
+          if (window.location.hash) {
+            const target = document.querySelector(window.location.hash);
+            const wrapper = document.querySelector('.scroll-wrapper');
+            if (target && wrapper) {
+              setTimeout(() => {
+                wrapper.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+              }, 100);
+            }
+          }
+        });
+        
+</script>
+</body>
+</html>

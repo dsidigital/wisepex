@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#dfeaff">
+    <title>Wisepex - Über Uns</title>
+    <link rel="icon" href="img/Sparky blue4.png" type="image/x-icon">
+    <!-- Critical paint: evita flash negro antes de cargar imágenes/CSS -->
+    <!-- Preload del background para evitar "flash" y mejorar LCP -->
+    <link rel="preload" as="image" href="img/Honeypex Background.png" fetchpriority="high">
+    <link rel="preload" as="image" href="img/Honeypex-Background-Mobile.png" media="(max-width: 900px)" fetchpriority="high">
+    <style>
+        @import "styles.css";
+    </style>
+
+</head>
+<body>
+
+    <div class="scroll-wrapper">
+    <div class="tunnel-bg"></div>
+
+    <header class="navbar">
+        <div class="logo-nav">
+            <a href="index.html">
+                <img src="img/Honeypex Logo Wisepex.png" alt="Logo Honeypex Wisepex" class="logo-nav-img">
+            </a>        
+        </div>
+        <div class="nav-links">
+            <div class="divider"></div>
+            <a href="index.html#leistung">LEISTUNG</a>            
+            <div class="divider"></div>
+            <a href="lebenszyklus.html">LEBENSZYKLUS</a>           
+            <div class="divider"></div>
+            <a href="uber-uns.html">ÜBER UNS</a>    
+        </div>
+    </header>
+
+    <div class="global-site-container">
+        <div class="team-container-title">ÜBER UNS</div>
+        <div class="content-block-uber-uns">
+            
+            <div class="team-container">
+        
+                <div class="content-block">
+                  <div class="image-wrapper">
+                    <div class="flip-card">
+                      <div class="flip-front">
+                        <img src="img/uber-uns1.avif" alt="Empleado 1">
+                      </div>
+                      <div class="flip-back">
+                        <img src="img/uber-uns1b.avif" alt="Empleado 1 Hover">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="content-text">
+                    <strong>Max Mustermann</strong>
+                    <div class="extra-text">
+                      <p>Director de Operaciones.</p>
+                      <p>Más de 10 años de experiencia.</p>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="content-block">
+                  <div class="image-wrapper">
+                    <div class="flip-card">
+                      <div class="flip-front">
+                        <img src="img/uber-uns2.avif" alt="Empleado 2">
+                      </div>
+                      <div class="flip-back">
+                        <img src="img/uber-uns2b.avif" alt="Empleado 2 Hover">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="content-text">
+                    <strong>Anna Schmidt</strong>
+                    <div class="extra-text">
+                      <p>Marketing Manager.</p>
+                      <p>Especialista en branding digital.</p>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="content-block">
+                  <div class="image-wrapper">
+                    <div class="flip-card">
+                      <div class="flip-front">
+                        <img src="img/uber-uns3.avif" alt="Empleado 3">
+                      </div>
+                      <div class="flip-back">
+                        <img src="img/uber-uns3b.avif" alt="Empleado 3 Hover">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="content-text">
+                    <strong>Laura Becker</strong>
+                    <div class="extra-text">
+                      <p>Desarrollo Técnico.</p>
+                      <p>Experta en arquitectura web.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    </div><!-- .scroll-wrapper -->
+    <script>
+
+        // Scroll al top al cargar
+        window.onbeforeunload = function () { window.scrollTo(0, 0); };
+        window.onload = function () {
+            const wrapper = document.querySelector('.scroll-wrapper');
+            if (wrapper) wrapper.scrollTop = 0;
+            window.scrollTo(0, 0);
+        };
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+
+        // Navegación
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (!href || !href.startsWith('#')) return;
+
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetSection = document.getElementById(targetId);
+                const wrapper = document.querySelector('.scroll-wrapper');
+                if (targetSection && wrapper) {
+                    wrapper.scrollTo({ top: targetSection.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+
+
+        window.addEventListener("load", function () {
+            if (window.location.hash) {
+              const target = document.querySelector(window.location.hash);
+              if (target) {
+                setTimeout(() => {
+                  target.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+              }
+            }
+          });
+
+        // Flip-cards: toggle al hacer click (para móviles/tablets)
+        document.querySelectorAll('.flip-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('flipped');
+            });
+        });
+
+    </script>
+</body>
+</html>
