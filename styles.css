@@ -23,15 +23,20 @@ html, body { background-color: #dfeaff; }
     box-sizing: border-box;
 }
 
+html, body {
+    box-sizing: border-box;
+}
+
 /* ========== BASE STYLES ========== */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-    overflow: hidden;
     overflow-x: hidden;
+    overflow-y: hidden;
     width: 100%;
+    max-width: 100vw;
     position: relative;
     background-color: #dfeaff;
 }
@@ -39,10 +44,13 @@ html, body {
 /* ========== SCROLL WRAPPER (maneja el scroll de toda la página) ========== */
 .scroll-wrapper {
     height: 100vh;
+    overflow-x: hidden;
     overflow-y: scroll;
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
     position: relative;
+    width: 100%;
+    max-width: 100vw;
     scrollbar-width: auto;
     scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
 }
@@ -101,10 +109,11 @@ body::-webkit-scrollbar-thumb:hover {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
+    max-width: 100vw;
     height: 100vh;
     height: 100dvh;               /* Safari dynamic viewport */
-    background-image: url("img/Honeypex Background.png");
+    background-image: url("img/Wisepex Background.png");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -121,16 +130,16 @@ body::-webkit-scrollbar-thumb:hover {
 .global-site-container {
     position: relative;
     z-index: 2;
-    width: 92%;
+    width: 100%;
     max-width: 1800px;
     margin: 0 auto;
-    overflow: visible;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding-top: 16vh;
-    padding-bottom: 5vh;
+    padding: 16vh clamp(20px, 4vw, 3rem) 5vh;
+    box-sizing: border-box;
 }
 
 
@@ -138,8 +147,9 @@ body::-webkit-scrollbar-thumb:hover {
 .navbar {
     position: fixed;
     top: 2vh;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     background-color: #000;
     border-radius: 50px;
     display: flex;
@@ -147,8 +157,8 @@ body::-webkit-scrollbar-thumb:hover {
     padding: 1vh 4vw;
     z-index: 1000;
     border: 1px solid #333;
-    width: 92%;
-    max-width: 92vw;
+    width: calc(100% - 40px);
+    max-width: 1000px;
     justify-content: space-between;
     box-sizing: border-box;
 }
@@ -233,16 +243,15 @@ body::-webkit-scrollbar-thumb:hover {
     top: 0;
     left: 0;
     transform: none;
-    font-size: 4rem;
-    font-weight: 500; 
-    color: #0000FF;          
+    font-size: 5rem;
+    font-weight: 600; 
     text-align: center;
     z-index: 102;
     margin-bottom: 3vh;
     animation: titleAppear 1s ease-out 2.5s forwards;
 }
 
-.content-block {
+.content-block-card {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -266,10 +275,10 @@ body::-webkit-scrollbar-thumb:hover {
     border: 0.3rem solid #007BFF;
 }
 
-.image-wrapper:hover .flip-card,
-.flip-card.flipped {
+.flip-card.is-flipped {
     transform: rotateX(180deg);
 }
+
 
 .flip-front,
 .flip-back {
@@ -291,14 +300,14 @@ body::-webkit-scrollbar-thumb:hover {
     transform: rotateX(180deg);
 }
 
-.content-text {
+.content-text-card {
     margin-top: 1.5rem;
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
 }
 
-.extra-text {
+.extra-text-card {
     opacity: 0;
     overflow: hidden;
     transition: max-height 0.5s ease, opacity 0.4s ease;
@@ -307,7 +316,7 @@ body::-webkit-scrollbar-thumb:hover {
     line-height: 1rem;
 }
 
-.content-block:hover .extra-text {
+.content-block-card.is-flipped .extra-text-card {
     opacity: 1;
 }
 
@@ -317,7 +326,7 @@ body::-webkit-scrollbar-thumb:hover {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    .content-block {
+    .content-block-card {
         max-width: 100%;
         margin: 0 auto;
     }
@@ -328,13 +337,42 @@ body::-webkit-scrollbar-thumb:hover {
 /* ========== MOBILE / TABLET: imagen de fondo móvil ========== */
 @media (max-width: 900px) {
     .tunnel-bg {
-        background-image: url("img/Honeypex-Background-Mobile.png");
+        background-image: url("img/Wisepex Background.png");
         background-position: center top;
     }
 }
 
 /* ========== MÓVILES MUY PEQUEÑOS ========== */
 @media (max-width: 480px) {
+
+    .navbar {
+        padding: 1vh 2vw;
+    }
+    
+    .logo-nav {
+        font-size: clamp(0.3rem, 1.5vw, 0.5rem);
+    }
+    .logo-nav span { color: var(--neon-purple); margin-left: 2px; }
+    
+    .logo-nav-img {
+        width: clamp(4.2rem, 5vw, 4rem);
+        object-fit: contain;
+    }
+    
+    .nav-links {
+        gap: clamp(0.7rem, 2.2vw, 1.7rem);
+    }
+    
+    .nav-links a {
+        font-size: clamp(0.25rem, 0.8vw, 0.35rem);
+    }
+
+    .nav-links a:hover { color: var(--neon-blue); }
+    
+    .divider {
+        display: none;
+    }
+
     .global-site-container {
         padding-top: 16vh;
         padding-bottom: 5vh;
@@ -353,7 +391,7 @@ body::-webkit-scrollbar-thumb:hover {
         width: 75%;
     }
 
-    .content-text {
+    .content-text-card {
         margin-top: 1.2rem;
         font-size: 1.2rem;
     }
@@ -371,13 +409,16 @@ body::-webkit-scrollbar-thumb:hover {
 
     /* Navbar superior */
     .navbar {
-        width: 92%;
-        max-width: 92%;
+        width: calc(100% - 40px);
+        max-width: calc(100vw - 40px);
+        margin: 0 auto;
+        left: 0;
+        right: 0;
         padding: 1vh 3vw;
     }
 
     .logo-nav-img {
-        width: clamp(6rem, 16vw, 8rem);
+        width: clamp(5rem, 16vw, 8rem);
     }
 
     .nav-links {
@@ -385,14 +426,14 @@ body::-webkit-scrollbar-thumb:hover {
     }
 
     .nav-links a {
-        font-size: clamp(0.6rem, 2.2vw, 0.75rem);
+        font-size: clamp(0.52rem, 2.2vw, 0.75rem);
     }
 
     /* Contenedor principal */
     .global-site-container {
-        width: 92%;
-        padding-top: 16vh;
-        padding-bottom: 5vh;
+        width: 100%;
+        padding: 16vh 20px 5vh;
+        max-width: 100%;
     }
 
     .team-container {
@@ -433,7 +474,7 @@ body::-webkit-scrollbar-thumb:hover {
         gap: 1.5rem;
     }
 
-    .content-block {
+    .content-block-card {
         height: auto;
         max-height: 18rem;
     }
@@ -470,7 +511,7 @@ body::-webkit-scrollbar-thumb:hover {
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-    .content-block {
+    .content-block-card {
         height: auto;
         max-height: 20rem;
     }
@@ -479,7 +520,7 @@ body::-webkit-scrollbar-thumb:hover {
         width: 60%;
     }
 
-    .content-text {
+    .content-text-card {
         margin-top: 1rem;
     }
 }
@@ -487,7 +528,7 @@ body::-webkit-scrollbar-thumb:hover {
 /* ========== TABLET (768px - 1023px) ========== */
 @media (min-width: 768px) and (max-width: 1023px) {
     .navbar {
-        width: 92%;
+        width: 65%;
         max-width: 92%;
         padding: 1.2vh 3vw;
     }
@@ -519,7 +560,7 @@ body::-webkit-scrollbar-thumb:hover {
         padding: 1.5rem 3rem 2rem 3rem;
     }
 
-    .content-block {
+    .content-block-card {
         height: 22rem;
     }
 
@@ -550,7 +591,7 @@ body::-webkit-scrollbar-thumb:hover {
         margin-right: 2.5vw;
     }
 
-    .content-block {
+    .content-block-card {
         height: 24rem;
     }
 
@@ -582,7 +623,7 @@ body::-webkit-scrollbar-thumb:hover {
         gap: 1.5rem;
     }
 
-    .content-block {
+    .content-block-card {
         height: auto;
         max-height: 24rem;
     }
@@ -591,14 +632,14 @@ body::-webkit-scrollbar-thumb:hover {
         width: 75%;
     }
 
-    .content-text {
+    .content-text-card {
         margin-top: 1.5rem;
         font-size: 1rem;
         font-weight: bold;
         text-align: center;
     }
     
-    .extra-text {
+    .extra-text-card {
         opacity: 0;
         overflow: hidden;
         transition: max-height 0.5s ease, opacity 0.4s ease;

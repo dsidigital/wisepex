@@ -8,8 +8,7 @@
     <link rel="icon" href="img/Sparky blue4.png" type="image/x-icon">
     <!-- Critical paint: evita flash negro antes de cargar imágenes/CSS -->
     <!-- Preload del background para evitar "flash" y mejorar LCP -->
-    <link rel="preload" as="image" href="img/Honeypex Background.png" fetchpriority="high">
-    <link rel="preload" as="image" href="img/Honeypex-Background-Mobile.png" media="(max-width: 900px)" fetchpriority="high">
+    <link rel="preload" as="image" href="img/Wisepex Background.png" fetchpriority="high">
     <style>
         @import "styles.css";
     </style>
@@ -37,12 +36,12 @@
     </header>
 
     <div class="global-site-container">
-        <div class="team-container-title">ÜBER UNS</div>
+        <div class="team-container-title">Über uns</div>
         <div class="content-block-uber-uns">
             
             <div class="team-container">
         
-                <div class="content-block">
+                <div class="content-block-card">
                   <div class="image-wrapper">
                     <div class="flip-card">
                       <div class="flip-front">
@@ -53,16 +52,16 @@
                       </div>
                     </div>
                   </div>
-                  <div class="content-text">
+                  <div class="content-text-card">
                     <strong>Max Mustermann</strong>
-                    <div class="extra-text">
+                    <div class="extra-text-card">
                       <p>Director de Operaciones.</p>
                       <p>Más de 10 años de experiencia.</p>
                     </div>
                   </div>
                 </div>
             
-                <div class="content-block">
+                <div class="content-block-card">
                   <div class="image-wrapper">
                     <div class="flip-card">
                       <div class="flip-front">
@@ -73,16 +72,16 @@
                       </div>
                     </div>
                   </div>
-                  <div class="content-text">
+                  <div class="content-text-card">
                     <strong>Anna Schmidt</strong>
-                    <div class="extra-text">
+                    <div class="extra-text-card">
                       <p>Marketing Manager.</p>
                       <p>Especialista en branding digital.</p>
                     </div>
                   </div>
                 </div>
             
-                <div class="content-block">
+                <div class="content-block-card">
                   <div class="image-wrapper">
                     <div class="flip-card">
                       <div class="flip-front">
@@ -93,9 +92,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class="content-text">
+                  <div class="content-text-card">
                     <strong>Laura Becker</strong>
-                    <div class="extra-text">
+                    <div class="extra-text-card">
                       <p>Desarrollo Técnico.</p>
                       <p>Experta en arquitectura web.</p>
                     </div>
@@ -145,14 +144,60 @@
             }
           });
 
-        // Flip-cards: toggle al hacer click (para móviles/tablets)
-        document.querySelectorAll('.flip-card').forEach(card => {
+        // Flip-cards: toggle al hacer click o hover//
+
+        const cards = document.querySelectorAll('.flip-card');
+
+        function setCardState(card, isOpen) {
+            card.classList.toggle('is-flipped', isOpen);
+            const block = card.closest('.content-block-card');
+            if (block) {
+                block.classList.toggle('is-flipped', isOpen);
+            }
+        }
+
+        function closeAllCards() {
+            cards.forEach(c => setCardState(c, false));
+        }
+
+        cards.forEach(card => {
+        
+            // CLICK (móvil + también desktop si se hace click)
             card.addEventListener('click', function(e) {
                 e.stopPropagation();
-                this.classList.toggle('flipped');
+            
+                const isAlreadyFlipped = this.classList.contains('is-flipped');
+            
+                // Cerrar todas
+                closeAllCards();
+            
+                // Si no estaba abierta, abrirla
+                if (!isAlreadyFlipped) {
+                    setCardState(this, true);
+                }
             });
+          
+            // HOVER solo para punteros con hover real (mouse/pen).
+            card.parentElement.addEventListener('pointerenter', function(e) {
+                if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+                closeAllCards();
+                setCardState(card, true);
+            });
+          
+            card.parentElement.addEventListener('pointerleave', function(e) {
+                if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+                setCardState(card, false);
+            });
+          
         });
 
-    </script>
+        // Click fuera → cerrar todas
+        document.addEventListener('click', function() {
+            closeAllCards();
+        });
+
+</script>
+
+
 </body>
 </html>
