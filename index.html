@@ -6,586 +6,9 @@
     <meta name="theme-color" content="#dfeaff">
     <title>Wisepex - Interface</title>
     <link rel="icon" href="img/Sparky blue4.png" type="image/x-icon">
-
-    <!-- Critical paint: evita flash negro antes de cargar imágenes/CSS -->
-    <style>
-        @import "styles.css";
-    </style>
- 
-    <!-- Preload del background para evitar "flash" y mejorar LCP -->
     <link rel="preload" as="image" href="img/Wisepex Background.png" fetchpriority="high">
-    <style>
-        
-
-        :root {
-            --neon-blue: #1304ea;
-            --neon-purple: #8137ff;
-            --logo-width-desktop: 35vw;
-            --content-gap-bottom: 12vh;            
-        }
-
-
-        /* Título principal */
-        .main-title {
-            display: flex;
-            position: relative;
-            text-align: center;
-            font-size: clamp(2.5rem, 4vw, 5rem);
-            font-weight: 500;
-            margin: 17vh auto 3vh auto;
-            max-width: 95%;
-            z-index: 102;
-            opacity: 1;
-            animation: titleAppear 1s ease-out 2.5s forwards;
-        }
-
-        
-        .hero-intro {
-            font-size: 1.2rem;
-            line-height: 1.5;
-            margin: 0 auto 2vh auto;
-            text-align: center;
-            max-width: 90%;
-        }
-
-        /* Contenedor para centrar los botones y darles separación */
-        .hero-buttons-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px; /* Separación entre botones según la imagen */
-            margin: 4vh 0 6vh 0; /* Espacio arriba y abajo */
-            width: 100%;
-        }
-
-        /* Diseño de los botones individuales */
-        .btn-hero {
-            display: inline-block;
-            padding: 18px 45px;
-            background-color: #0000FF; /* El azul vibrante de la imagen */
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            border-radius: 50px; /* Hace que el botón sea totalmente ovalado */
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-            min-width: 180px;
-        }
-
-        /* Efecto al pasar el ratón */
-        .btn-hero:hover {
-            background-color: #1e00b3; /* Un azul un poco más oscuro al hacer hover */
-            transform: translateY(-3px); /* Pequeño salto hacia arriba */
-            box-shadow: 0 10px 20px rgba(43, 0, 255, 0.3);
-        }
-
-        /* ============================================
-            FEATURES SECTION  
-            ============================================ */
-
-
-        .features-container {
-            width: 100%;
-            max-width: 87.5rem;
-            margin: 0 auto;
-            padding: 0 2.1875rem;
-            box-sizing: border-box;
-        }
-
-        /* Contenedor de las feature cards */
-        .features-grid {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            min-width: 0;
-        }
-        /* ============================================
-            FEATURE CARDS   
-            ============================================ */
-
-        .feature-card {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            min-width: 0;
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-
-            border-radius: 40px; /* Bordes muy redondeados como en la imagen */
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            padding: 2vh 5vh;
-            width: 100%;
-            min-height: 400px;
-            box-sizing: border-box;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
-        }
-        /* Estado visible */
-        .feature-card.show {
-            opacity: 1;
-            transform: perspective(1000px) rotateZ(0deg);
-        }
-
-        /* Delays se mantienen en segundos */
-        .feature-card.show:nth-child(1) { transition-delay: 0.3s; }
-        .feature-card.show:nth-child(2) { transition-delay: 0.4s; }
-        .feature-card.show:nth-child(3) { transition-delay: 0.5s; }
-        .feature-card.show:nth-child(4) { transition-delay: 0.6s; }
-        .feature-card.show:nth-child(5) { transition-delay: 0.7s; }
-
-
-        .feature-card.show:hover {
-            /* Elevación sutil manteniendo el efecto glassmorphism */
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
-            border-color: rgba(255, 255, 255, 0.55);
-            background: rgba(255, 255, 255, 0.5);
-            transform: translateY(-5px);
-            z-index: 2;
-        }
-
-        /* Contenedor de Imagen (Derecha) */
-        .feature-image-container {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-        }
-        
-        .feature-image-container img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            aspect-ratio: 16/10;
-            object-fit: cover;
-            border-radius: 30px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        .feature-image {
-            width: 100%;
-            /* 250px -> 15.625rem */
-            height: 15.625rem;
-            overflow: hidden;
-            border-radius: 0.625rem;
-            margin-bottom: 1.25rem;
-        }
-
-        .feature-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-normal);
-        }
-
-        .feature-card.show:hover .feature-image img {
-            transform: scale(1.1);
-        }
-
-        /* Contenedor de Texto (Izquierda) */
-        .feature-content-left {
-            flex: 1;
-            padding-right: 40px;
-            text-align: left;
-        }
-        
-        .feature-title {
-            font-size: clamp(1.2rem, 4vw, 2rem);
-            font-weight:500;
-            color: #000;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        
-        .feature-description {
-            font-size: 1rem;
-            line-height: 1.4;
-            color: #333;
-            margin-bottom: 3vh;
-            max-width: 500px;
-        }
-        
-        /* Etiquetas (Pills) */
-        .feature-tags {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .feature-tag {
-            background-color: #0000FF;
-            color: white;
-            padding: 1vh 2vh;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;        
-        }
-
-        .feature-card.show:hover .feature-title {
-            color: var(--color-primary);
-        }
-
-
-        .feature-card.show:hover .feature-tag {
-            transform: translateY(-0.125rem);
-        }
-       
-
-        /* --- NUEVO BLOQUE QUESTIONS --- */
-
-        
-        .content-bloq-faq-header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 3vh;
-            max-width: 90%;
-            padding: 4rem 0 2rem;
-            text-align: center;
-        }
-           
-            
-        .content-block-questions {
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(1px);
-            -webkit-backdrop-filter: blur(1px);
-            width: 100%;
-            margin: 2vh auto 8vh auto;
-            max-width: min(1600px, 100%);
-            padding: 5vh;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            color: #000;
-            box-sizing: border-box;
-            animation: blockAppear 0.8s ease-out forwards;
-        }
-    
-            
-        .content-bloq-faq {
-            width: 100%;
-            max-width: 1600px;
-            margin: 2vh auto 6vh auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .block-faq {
-            border-radius: 22px;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px) scale(0.98);
-            animation: faqAppear 0.8s ease-out forwards;
-        }
-
-        @keyframes faqAppear {
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .faq-question {
-            width: 100%;
-            padding: 22px 25px;
-            background: rgba(135, 128, 255, 0.70);
-            color: #000000;
-            font-size: 1.2rem;
-            font-weight: 500;
-            text-align: left;
-        
-            border: none;
-            border-radius: 22px;
-            cursor: pointer;
-        
-            display: block;
-        
-            transition:
-                background 0.3s ease,
-                transform 0.25s ease,
-                box-shadow 0.25s ease;        
-        }
-
-        .faq-question:active {
-            transform: scale(0.985);
-        }
-
-        .faq-question strong {
-            font-weight: 800;
-        }
-
-        .block-faq:hover .faq-question {
-            background: rgba(135, 128, 255, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-        }
-
-        .block-faq.active .faq-question {
-            background: rgba(135, 128, 255, 1);
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-            box-shadow: none;
-            transform: none;            
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-
-            background: rgba(135, 128, 255, 0.18);
-            color: #000000;
-
-            padding: 0 28px;
-
-            transition:
-                max-height 0.45s ease,
-                padding 0.35s ease,
-                opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .block-faq.active .faq-answer {
-            max-height: 500px;
-            padding: 22px 28px 25px 28px;
-            opacity: 1;
-        }
-
-        .block-faq.active:hover {
-            transform: translateY(-2px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .block-faq.active:hover .faq-question {
-            background: rgba(135, 128, 255,1);
-        }
-        .block-faq.active:hover .faq-answer {
-            background: rgba(135, 128, 255, 0.32);
-        }
-
-        .faq-answer p {
-            margin: 0 0 8px 0;
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
-
-        .faq-answer p strong {
-            font-weight: 800;
-        }
-  
-
-        /* ========== MOBILE / TABLET: imagen de fondo móvil ========== */
-        @media (max-width: 900px) {
-            .tunnel-bg {
-                background-image: url("img/Wisepex Background.png");
-                background-position: center top;
-            }
-        }
-
-        /* ========== MOBILE PORTRAIT ========== */
-        @media (max-width: 768px) {
-
-            /* Tipografía móvil */
-            .main-title {
-                font-size: clamp(1.4rem, 6vw, 2.2rem);
-            }
-
-            .feature-title {
-                font-size: clamp(1.1rem, 4vw, 2.2rem);
-            }
-
-            .hero-intro {
-                max-width: 90%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            /* Feature cards responsive */
-            .features-container {
-                padding: 0 20px;
-            }
-
-            .features-grid {
-                max-width: 100%;
-                padding: 0;
-                width: 100%;
-            }
-
-            .feature-card {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 24px 16px;
-                min-height: auto;
-                transform: none;
-            }
-
-            .feature-card.show {
-                transform: none;
-            }
-
-            .feature-card.show:hover {
-                transform: translateY(-3px);
-            }
-
-            .feature-content-left {
-                padding-right: 0;
-                margin-bottom: 20px;
-                min-width: 0;
-            }
-
-            .feature-image-container {
-                justify-content: center;
-                width: 100%;
-                min-width: 0;
-            }
-
-            .feature-image-container img {
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                aspect-ratio: auto;
-                object-fit: cover;
-            }
-
-            /* Soberanía del viewport */
-            html, body {
-                overflow-x: hidden;
-                width: 100%;
-                max-width: 100vw;
-            }
-
-            /* Contenedor principal */
-            .global-site-container {
-                width: 100%;
-                padding: 16vh 20px 5vh;
-                max-width: 100%;
-            }
-
-            .hero-buttons-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                width: 100%;
-                padding: 0 20px;
-            }
-
-            .btn-hero {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                max-width: 280px;
-                box-sizing: border-box;
-            }
-
-            .hero-cta-btn {
-                margin: 2vh auto 6vh auto;
-            }
-
-            /* Bloque de contenido principal */
-            .content-block-questions {
-                width: 100%;
-                max-width: 100%;
-                margin: 12vh auto 6vh auto;
-                padding: 2rem 20px;
-                border-radius: 1.25rem;
-                box-sizing: border-box;
-            }
-
-            /* Header grid a una columna */
-            .hero-header-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                text-align: center;
-            }
-
-            .hero-header-center {
-                justify-content: center;
-            }
-
-
-            /* Títulos centrados */
-            .content-bloq-faq-header .faq-title {
-                font-size: clamp(2.2rem, 7vw, 3rem);
-                text-align: center;
-                width: 100%;
-                display: block;
-                padding: 0;
-                margin: 0 auto 1vh auto;
-            }
-
-            /* FAQ */
-            .content-bloq-faq {
-                margin: 6vh 0 2vh 0;
-                padding: 0;
-                gap: 15px;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .faq-question {
-                font-size: 1rem;
-                padding: 18px 20px;
-            }
-
-            .faq-answer {
-                padding: 0 20px;
-            }
-
-            .block-faq.active .faq-answer {
-                padding: 18px 20px 20px 20px;
-            }
-
-            .faq-answer p {
-                font-size: 0.95rem;
-            }
-
-        }
-
-        /* ========== MÓVILES PEQUEÑOS (320px-480px) ========== */
-        @media (max-width: 480px) {
-            .features-container {
-                padding: 0 20px;
-            }
-
-            .feature-card {
-                padding: 20px 16px;
-            }
-
-            .main-title {
-                font-size: clamp(1.25rem, 5vw, 2.2rem);
-            }
-        }
-
-        /* ========== MOBILE LANDSCAPE ========== */
-        @media (max-width: 900px) and (orientation: landscape) {
-            .global-site-container {
-                width: 100%;
-                padding: 16vh 20px 5vh;
-            }
-
-            .content-block-questions {
-                padding: 2rem 20px;
-                border-radius: 1.5rem;
-            }
-
-            .content-bloq-faq-header .faq-title {
-                font-size: clamp(1.8rem, 4vw, 2.5rem);
-                margin: 0 auto 1vh auto;
-            }
-        }
-
-
-</style>
-
-
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
 
@@ -600,9 +23,9 @@
         </div>
         <div class="nav-links">
             <div class="divider"></div>
-            <a href="index.html#leistung">LEISTUNG</a>            
+            <a href="index.html">LEISTUNG</a>            
             <div class="divider"></div>
-            <a href="lebenszyklus.html">LEBENSZYKLUS</a>           
+            <a href="#lebenszyklus">LEBENSZYKLUS</a>           
             <div class="divider"></div>
             <a href="uber-uns.html">ÜBER UNS</a>    
         </div>
@@ -615,19 +38,20 @@
             
             <p class="hero-intro">Wir begleiten dich bei der Analyse, Planung und Umsetzung deiner digitalen Lösungen.<br>
 
-                Praxisnah | Transparent | Technologieoffen</p>.
+                Praxisnah | Transparent | Technologieoffen</p>
 
             <div class="hero-buttons-container">
-                <a href="lebenszyklus.html" class="btn-hero">LEBENSZYKLUS</a>
+                <a href="#lebenszyklus" class="btn-hero">LEBENSZYKLUS</a>
                 <a href="uber-uns.html" class="btn-hero">ÜBER UNS</a>
             </div>
 
+            <span id="lebenszyklus" class="anchor-target"></span>           
             <h2 class="main-title">WAS WIR TUN</h2>
                 
             
-            <p class="hero-intro" style="margin-bottom:7vh">Wir sind spezialisiert in den Bereichen Hochbau und Tiefbau mit all ihren Facetten <br> und
+            <p class="hero-intro gap-bottom-7">Wir sind spezialisiert in den Bereichen Hochbau und Tiefbau mit all ihren Facetten <br> und
                 begleiten dich im gesamten Lebenszyklus deines Projekts oder deiner Immobilie. <br> Wir
-                schaffen digitale Strukturen, die funktionieren, von der ersten Idee bis zum laufenden Betrieb.</p>.
+                schaffen digitale Strukturen, die funktionieren, von der ersten Idee bis zum laufenden Betrieb.</p>
                         
              
                 <section class="features-container">
@@ -711,13 +135,14 @@
                             </div>
                         </div>
                     </div>
-            </section>
+                </section>
 
             <div class="content-bloq-faq-header">
                 
                 <h2 class="main-title">Du hast Fragen?</h2>
                 
-                <p>Wir begleiten dich transparent durch jede Phase unseres gemeinsamen Projekts. Hier beantworten wir die häufigsten Fragen rund um unsere Leistungen und Arbeitsweise.</p>
+                <p class="hero-intro">Wir begleiten dich transparent durch jede Phase unseres gemeinsamen Projekts. <br> 
+                    Hier beantworten wir die häufigsten Fragen rund um unsere Leistungen und Arbeitsweise.</p>
             </div>
 
         <section class="content-block-questions" id="faq">
@@ -784,13 +209,38 @@
 
 
 
-        <h2 class="main-title" style="margin:6vh auto 1vh auto;">Kontaktiere uns</h2>
+        <h2 class="main-title contact-title">Kontaktiere uns</h2>
                 
             
-        <p class="hero-intro">Du möchtest dein Projekt besprechen oder hast Fragen zu unseren Lösungen? 
+        <p class="hero-intro gap-bottom-7">Du möchtest dein Projekt besprechen oder hast Fragen zu unseren Lösungen? 
             <br> Gern beraten wir dich unverbindlich und zeigen dir, wie Digitalisierung <br>in deinem Unternehmen messbar Mehrwert schafft.</p>
         
             <a href="lebenszyklus.html" class="btn-hero hero-cta-btn">E-MAIL SENDEN</a>
+
+    </div><!-- .global-site-container -->
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="img/Black Logo Wisepex.png" alt="Wisepex Logo">
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <div class="footer-links">
+                    <a href="impressum.html">Impressum</a>
+                    <a href="datenschutz.html">Datenschutz</a>
+                </div>
+                <div class="footer-credit">Erstellt von DSI Digital</div>
+                <div class="footer-copyright">Copyright © 2026 Alle Rechte vorbehalten</div>
+            </div>
+        </footer>
 
     </div><!-- .scroll-wrapper -->
     <script>
@@ -865,10 +315,25 @@
         });
     }
 
-    </script>
+    // Animación de tarjetas de features
+    const observerOptions = {
+        threshold: 0.2 // Se activa cuando el 20% de la tarjeta es visible
+    };
+    
+    const featureObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                featureObserver.unobserve(entry.target); // Deja de observar una vez animado
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.feature-card').forEach(card => {
+        featureObserver.observe(card);
+    });
 
-    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+    </script>
 
 </body>
 </html>
