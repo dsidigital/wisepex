@@ -39,29 +39,6 @@ html, body {
     font-weight: bolder;
 }
 
-/* ========== ANIMACIONES GLOBALES ========== */
-@keyframes titleAppear {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes blockAppear {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* ========== SCROLL WRAPPER ========== */
 .scroll-wrapper {
     height: 100vh;
@@ -217,12 +194,50 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .divider {
-    display: feature;
     width: 1px;
     min-width: 1px;
     height: 3vh;
     background-color: #0044ff;
 }
+
+/* ----- Footer (glassmorphism) ----- */
+.site-footer {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 4vh 5vh 2vh 5vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.footer-divider {
+    width: 100%;
+    max-width: 1600px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2);
+    margin-bottom: 2vh;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--neon-blue);
+}
+
 
 /* ========== MEDIA QUERIES GLOBALES (navbar, container, tunnel-bg) ========== */
 @media (max-width: 900px) {
@@ -305,6 +320,22 @@ body::-webkit-scrollbar-thumb:hover {
         padding: 16vh 20px 5vh;
         max-width: 100%;
     }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+
+    .site-footer {
+        padding: 4vh 20px 3vh 20px;
+        margin-top: 1vh;
+    }
+
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -315,7 +346,6 @@ body::-webkit-scrollbar-thumb:hover {
     }
 
     .divider {
-        display: feature;
         width: 1px;
         min-width: 1px;
         height: 3vh;
@@ -341,7 +371,6 @@ body::-webkit-scrollbar-thumb:hover {
     }
 
     .divider {
-        display: feature;
         width: 1px;
         min-width: 1px;
         height: 3vh;
@@ -376,7 +405,6 @@ body::-webkit-scrollbar-thumb:hover {
     }
 
     .nav-links .divider {
-        display: feature;
         width: 1px;
         min-width: 1px;
         height: 2.4vh;
