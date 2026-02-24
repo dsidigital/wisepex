@@ -10,6 +10,13 @@
         flex-direction: column;
         min-height: 100vh;
       }
+
+      .anchor-target {
+        display: block;
+        position: relative;
+        top: -20vh; 
+        visibility: hidden;
+    }
            
             
       /* ===== CONTENT BLOCK ===== */
