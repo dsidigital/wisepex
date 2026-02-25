@@ -5,10 +5,11 @@
         z-index: 2;
         width: 92%;
         max-width: 112.5rem;
-        margin: 0 auto;
+        margin: 10vh auto 5vh;
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        gap: 25vh;
       }
 
       .anchor-target {
@@ -21,11 +22,10 @@
             
       /* ===== CONTENT BLOCK ===== */
       .content-block-kontakt {
-          background: rgba(255, 255, 255, 0.4); /* Un poco más claro como la imagen */
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          background: rgba(255, 255, 255, 0.35);
+          backdrop-filter: blur(1px);
+          -webkit-backdrop-filter: blur(1px);
           width: 100%;
-          margin: 5vh auto 15vh; /* Añadimos margen inferior para separar de Impressum */
           padding: 4rem;
           border-radius: 2rem;
           border: 1px solid rgba(255, 255, 255, 0.5);
@@ -175,6 +175,7 @@
       /* Contenedor landscape */
       .global-site-container {
         width: 92%;
+        gap: 20vh;
       }
 
       /* Contenido principal */
@@ -220,15 +221,17 @@
 
       /* Contenedor principal */
       .global-site-container {
-        width: 92%;
+        width: 94%;
         padding: 0;
+        margin: 16vh auto 8vh auto;
+        gap: 15vh;
       }
 
       /* Bloque de contenido */
       .content-block-kontakt {
         width: 100%;
         max-width: 100%;
-        margin: 12vh auto 10rem auto;
+        margin:0;        
         padding: 2rem 5vw;
         border-radius: 1.25rem;
       }
@@ -251,13 +254,14 @@
       }
 
       /* Títulos centrados absolutamente */
-      .kontakt-title {
-        font-size: clamp(2rem, 8vw, 3rem);
+      .kontakt-title-simple {
+        font-size: clamp(1.2rem, 4vw, 3.5rem);
         text-align: center;
         width: 100%;
         display: block;
         padding: 0;
         margin: 0 auto;
+        font-weight: 600;
       }
 
       /* Grid de contacto a una columna */

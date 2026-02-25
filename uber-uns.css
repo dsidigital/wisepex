@@ -6,7 +6,7 @@
     text-align: center;
     font-size: clamp(2.5rem, 5vw, 5.5rem);
     font-weight: 600;
-    margin: 22vh auto 3vh auto;
+    margin: 20vh auto 3vh auto;
     max-width: 95%;
     z-index: 102;
     opacity: 1;
@@ -16,42 +16,23 @@
 .hero-intro {
     font-size: clamp(1rem, 2.5vw, 1.6rem);
     line-height: 1.6;
-    margin: 0 auto 40vh auto;
+    margin: 0 auto 18vh auto;
     text-align: center;
     max-width: 90%;
 }
 
 /* Depende de styles.css (variables :root, animaciones globales) */
 
-.content-block-uber-uns {
-    position: relative;
-    top: 0;
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    width: 100%;
-    max-width: 1600px;
-    min-height: auto;
-    margin: 0;
-    padding: 2rem 4rem 3rem 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    color: #000;
-    box-sizing: border-box;
-    animation: blockAppear 0.8s ease-out forwards;
-}
-
+/* ----- Team Grid ----- */
 .team-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
-    gap: 40px; /* Espacio entre tarjetas */
-    padding: 40px;
-    max-width: 1200px;
+    width: 90%;
+    max-width: 75rem;
     margin: 0 auto;
-    font-family: sans-serif;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-items: stretch;
+    align-items: start;
 }
 
 .team-container-title {
@@ -67,34 +48,29 @@
     animation: titleAppear 1s ease-out 2.5s forwards;
 }
 
+/* ----- Card base (sin alturas fijas) ----- */
 .content-block-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    gap: 1rem;
 }
 
 .image-wrapper {
-    width: 70%;
+    width: 80%;
     aspect-ratio: 1 / 1;
     perspective: 60rem;
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Mantiene las tarjetas cuadradas */
-    border-radius: 40px; /* Bordes muy redondeados como en la foto */
-    overflow: hidden; /* Corta la imagen para que siga la curva */
-    background-color: #f0f0f0;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Sombra suave */}
+    margin: 0 auto;
+}
 
 .flip-card {
     width: 100%;
     height: 100%;
     position: relative;
-    object-fit: cover;
     transform-style: preserve-3d;
     transition: transform 0.6s ease;
-    border-radius: 50%;
-    border: 0.3rem solid #007BFF;
+    border-radius: 25%;
+    border: 0.8rem solid rgba(255, 255, 255, 0.55);
 }
 
 .flip-card.is-flipped {
@@ -103,13 +79,10 @@
 
 .flip-front,
 .flip-back {
-    position: absolute;    
-    width: 100%;
-    height: 100%;
+    position: absolute;
     inset: 0;
-    object-fit: cover;
     backface-visibility: hidden;
-    border-radius: 50%;
+    border-radius: 25%;
     overflow: hidden;
 }
 
@@ -124,44 +97,92 @@
     transform: rotateX(180deg);
 }
 
+/* ----- Card text ----- */
+.content-text-card {
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 0;
+}
+
 .content-text-card strong {
     display: block;
     font-size: 1.2rem;
-    text-transform: uppercase; /* Nombres en mayúsculas */
-    color: #333;
-    margin-top: 10px;
-    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.04em;
 }
 
 .extra-text-card {
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease, opacity 0.4s ease;
     text-align: center;
-    margin: 5px 0 0;
-    color: #666;
-    font-size: 0.9rem;
-    line-height: 1rem;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.4;
+    margin-top: 0.25rem;
+}
+
+.extra-text-card p {
+    margin: 0;
 }
 
 .content-block-card.is-flipped .extra-text-card {
     opacity: 1;
 }
 
-/* ----- Responsive Über uns ----- */
+/* ----- Responsive ----- */
+
+/* Tablet: 2 columnas */
 @media (max-width: 900px) {
     .team-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
 
-    .content-block-card {
-        max-width: 100%;
-        margin: 0 auto;
+    .image-wrapper {
+        width: 75%;
     }
 }
 
+/* Móvil: 1 columna */
+@media (max-width: 768px) {
+    .hero-intro {
+        margin: 0 auto 11vh auto;
+    }
+
+    .team-container {
+        grid-template-columns: 1fr;
+        gap: 10vh;
+        width: 100%;
+    }
+
+    .team-container-title {
+        font-size: 2rem;
+        margin-bottom: 4vh;
+    }
+
+    .content-block-card {
+        max-width: 480px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .image-wrapper {
+        width: 72%;
+        max-width: 72vw;
+    }
+
+    .content-block-uber-uns {
+        padding: 1.5rem 2rem 2rem 2rem;
+    }
+}
+
+/* Móvil pequeño */
 @media (max-width: 480px) {
+
+    .main-title {
+        margin-top: 10vh;
+    }
+
     .team-container-title {
         font-size: 1.6rem;
         margin-bottom: 1.5vh;
@@ -172,93 +193,72 @@
     }
 
     .image-wrapper {
-        width: 75%;
+        width: 78%;
+        max-width: 78vw;
     }
 
     .content-text-card {
-        margin-top: 1.2rem;
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 }
 
-@media (max-width: 768px) {
-    .team-container {
-        grid-template-columns: 1fr;
-        gap: 15vh;
-    }
-
-    .team-container-title {
-        font-size: 2rem;
-        margin-bottom: 4vh;
-    }
-
-    .content-block-uber-uns {
-        padding: 1.5rem 2rem 2rem 2rem;
-    }
-}
-
+/* Paisaje móvil pequeño */
 @media (max-width: 767px) and (orientation: landscape) {
+    .hero-intro {
+        margin: 0 auto 10vh auto;
+    }
+
     .team-container-title {
         font-size: 1.8rem;
         margin-bottom: 1.5vh;
     }
 
-    .content-block-uber-uns {
-        padding: 1.5rem 2rem 2rem 2rem;
-    }
-
     .team-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
 
-    .content-block-card {
-        height: auto;
-        max-height: 18rem;
-    }
-
     .image-wrapper {
-        width: 50%;
+        width: 65%;
     }
 }
 
+/* Tablet paisaje: volver a 3 columnas */
 @media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
     .team-container-title {
         font-size: 2.2rem;
         margin-bottom: 1.5vh;
     }
 
-    .content-block-uber-uns {
-        flex: 1;
-        min-height: 0;
-        padding: 1.5vh 3rem;
-        overflow: hidden;
-    }
-
     .team-container {
-        height: 100%;
+        grid-template-columns: repeat(3, 1fr);
         gap: 1.2rem;
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    .content-block-card {
-        height: auto;
-        max-height: 20rem;
     }
 
     .image-wrapper {
-        width: 60%;
+        width: 70%;
     }
 
     .content-text-card {
-        margin-top: 1rem;
+        margin-top: 0;
     }
 }
 
+/* Tablet portrait */
 @media (min-width: 768px) and (max-width: 1023px) {
+    .main-title {
+        font-size: clamp(2.5rem, 5vw, 5.5rem);
+        font-weight: 600;
+        margin: 20vh auto 3vh auto;
+        max-width: 95%;
+    }
+
+    .hero-intro {
+        margin: 0 auto 18vh auto;
+    }
+
     .team-container {
-        padding-top: 12vh;
-        gap: 1.5rem;
+        gap: 3rem;
     }
 
     .team-container-title {
@@ -269,24 +269,41 @@
     .content-block-uber-uns {
         padding: 1.5rem 3rem 2rem 3rem;
     }
-
-    .content-block-card {
-        height: 22rem;
-    }
 }
 
+/* Desktop: 3 columnas, imagen al 80% */
 @media (min-width: 1024px) {
-    .content-block-card {
-        height: 24rem;
+    .team-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .image-wrapper {
+        width: 80%;
+    }
+
+    .content-text-card {
+        font-size: 1.2rem;
+    }
+
+    .extra-text-card {
+        font-size: 0.95rem;
+        line-height: 1.4;
     }
 }
 
+/* Desktop landscape */
 @media (min-width: 1024px) and (orientation: landscape) {
     .global-site-container {
         min-height: 100vh;
-        padding-top: 16vh;
+        margin-top:6vh;
+        padding-top: 15vh;
         padding-bottom: 5vh;
         justify-content: space-between;
+    }
+
+    .hero-intro {
+        margin: 0 auto 10vh auto;
     }
 
     .team-container-title {
@@ -302,32 +319,10 @@
     }
 
     .team-container {
-        height: 100%;
-        gap: 1.5rem;
-    }
-
-    .content-block-card {
-        height: auto;
-        max-height: 24rem;
+        gap: 3rem;
     }
 
     .image-wrapper {
-        width: 75%;
-    }
-
-    .content-text-card {
-        margin-top: 1.5rem;
-        font-size: 1rem;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .extra-text-card {
-        opacity: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease, opacity 0.4s ease;
-        text-align: center;
-        font-size: 0.9rem;
-        line-height: 0.7rem;
+        width: 80%;
     }
 }

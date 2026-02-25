@@ -132,7 +132,7 @@ body::-webkit-scrollbar-thumb:hover {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding: 16vh clamp(20px, 4vw, 3rem) 5vh;
+    padding: clamp(10vh, 15vh, 16vh) clamp(20px, 4vw, 3rem) 5vh;
     box-sizing: border-box;
 }
 
@@ -145,6 +145,8 @@ body::-webkit-scrollbar-thumb:hover {
     right: 0;
     margin: 0 auto;
     border-radius: 50px;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(1px);
     display: flex;
     align-items: center;
     padding: 1vh 4vw;
@@ -199,13 +201,57 @@ body::-webkit-scrollbar-thumb:hover {
     background-color: #0044ff;
 }
 
+
+/* Contenedor principal del indicador */
+.scroll-indicator {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem; /* space-y-3 */
+    cursor: pointer;
+    animation: scroll-bounce 2s infinite; /* animate-scroll-bounce */
+}
+
+/* Estilo del texto "Scroll" */
+.scroll-text {
+    font-family: 'Space Grotesk', sans-serif; /* Aproximación a font-space */
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #4a515b; /* text-slate-400 */
+}
+
+/* La línea vertical con degradado */
+.scroll-line {
+    width: 3px;
+    height: 3rem; /* h-12 */
+    background: linear-gradient(to bottom, #2a3f59eb, transparent); /* from-slate-300 to-transparent */
+}
+
+/* Definición de la animación de rebote */
+@keyframes scroll-bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translate(-50%, 0);
+    }
+    40% {
+        transform: translate(-50%, -10px);
+    }
+    60% {
+        transform: translate(-50%, -5px);
+    }
+}
+
+
 /* ----- Footer (glassmorphism) ----- */
 .site-footer {
     width: 100%;
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(1px);
     -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.65);
     padding: 4vh 5vh 2vh 5vh;
     box-sizing: border-box;
     display: flex;
@@ -223,7 +269,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .footer-links {
     display: flex;
-    gap: 20px;
+    gap: 1rem;
 }
 
 .footer-links a {
@@ -281,7 +327,7 @@ body::-webkit-scrollbar-thumb:hover {
     }
 
     .global-site-container {
-        padding-top: 16vh;
+        padding-top: 13vh;
         padding-bottom: 5vh;
     }
 }
@@ -316,7 +362,7 @@ body::-webkit-scrollbar-thumb:hover {
 
     .global-site-container {
         width: 100%;
-        padding: 16vh 20px 5vh;
+        padding: 13vh 20px 5vh;
         max-width: 100%;
     }
 
@@ -352,14 +398,14 @@ body::-webkit-scrollbar-thumb:hover {
     }
 
     .global-site-container {
-        padding-top: 16vh;
+        padding-top: 14vh;
         padding-bottom: 5vh;
     }
 }
 
 @media (min-width: 1024px) {
     .navbar {
-        width: 60%;
+        width: 56%;
         max-width: 1000px;
         padding: 1.2vh 3vw;
         top: 3vh;
@@ -384,6 +430,7 @@ body::-webkit-scrollbar-thumb:hover {
 @media (min-width: 1920px) {
     .navbar {
         max-width: 1400px;
+        width: 46%;
     }
 }
 
@@ -391,6 +438,7 @@ body::-webkit-scrollbar-thumb:hover {
     .navbar {
         justify-content: center;
         gap: clamp(0.5rem, 2.2vw, 1.8rem);
+        width: 76%;
     }
 
     .logo-nav {
