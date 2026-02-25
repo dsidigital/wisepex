@@ -44,13 +44,14 @@
     background: rgba(255, 255, 255, 0.35);
     backdrop-filter: blur(1px);
     -webkit-backdrop-filter: blur(1px);
-    max-width: 70rem;
+    width: 80%;
     margin: 5vh auto 10vh; 
     padding: 4rem;
     border-radius: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.5);
     font-size: 1.1rem;
     box-sizing: border-box;  
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
 } 
 
 .content-block-lebenszyklus h3 {
@@ -60,7 +61,7 @@
 /* ----- Lebenszyklus Section ----- */
 
 .lebenszyklus-container {
-    max-width: 87.5rem;
+    width: 80%;
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -72,7 +73,6 @@
     justify-content: center;
     gap: 25vh;
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
     min-width: 0;
 }
@@ -87,16 +87,16 @@
     border-radius: 40px;
     border: 0.0625rem solid rgba(255, 255, 255, 0.35);
     padding: 3%;
-    width: 90%;
-    max-width: 70rem; /* Ancho máximo para legibilidad */
-    margin: 1.5rem auto;
+    width: 100%;
+    margin: 1.5rem 0;
+    box-sizing: border-box;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
 }
 
-.lebenszyklus-card:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
-    border-color: rgba(255, 255, 255, 0.55);
-    background: rgba(255, 255, 255, 0.55);
-    transform: translateY(-10px);
+.lebenszyklus-card:hover, .content-block-lebenszyklus:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-5px);
     z-index: 2;
 }
 
@@ -191,8 +191,8 @@
     }
 
     .content-block-lebenszyklus {
-        max-width: 70rem;
-        margin: 2vh 2rem 15vh 2rem;
+        width: 92%;
+        margin: 2vh auto 15vh auto;
         padding: 1rem;
     }
 
@@ -204,25 +204,24 @@
     }
 
     .lebenszyklus-container {
-        padding: 0 20px;
-        width: 100%;
+        width: 92%;
+        padding: 0;
     }
 
     .lebenszyklus-grid {
-        max-width: 100%;
-        padding: 0;
         width: 100%;
+        padding: 0;
         gap: 10vh;
     }
 
     .lebenszyklus-card {
-
         display: flex;
         flex-direction: column;
-        align-items: center; /* Centra todo el contenido */
+        align-items: center;
         text-align: center;
         gap: 1.5rem;
         padding: 2rem;
+        width: 100%;
     }
 
     .lebenszyklus-card.show {
@@ -279,8 +278,8 @@
 @media (max-width: 480px) {
 
     .content-block-lebenszyklus {
-        max-width: 70rem;
-        margin: 0 2vh 15vh;
+        width: 92%;
+        margin: 0 auto 15vh;
         padding: 1.5rem;
         font-size: 1.1rem;
     }
@@ -296,7 +295,7 @@
     }
 
     .lebenszyklus-card {
-        padding: 20px 16px;
+        padding: 20px 1.5rem;
         width: 100%;
     }
 
@@ -322,15 +321,32 @@
     }
 
     .lebenszyklus-grid {
-        gap: 15vh; /* Espaciado entre tarjetas basado en el alto de pantalla */
+        gap: 15vh;
     }
 
-    /* Eliminamos las restricciones de height que tenías aquí anteriormente */
+    .lebenszyklus-description {
+        line-height: 1.55;
+    }
+
+    .lebenszyklus-header-group {
+        margin-left: 4.5rem;
+    }
+
     .lebenszyklus-image {
-        display: contents; /* Anulamos el contenedor antiguo si existe */
+        display: contents;
     }
     
     .lebenszyklus-image-container img {
-        max-width: 100%; /* Permite que llene su 50% asignado */
+        max-width: 100%;
+    }
+
+    .lebenszyklus-card {
+        padding: 2%;
+        gap: 1rem;
+    }
+
+    .lebenszyklus-image-wrapper {
+        max-width: 75%;
+        margin: 0 auto;
     }
 }

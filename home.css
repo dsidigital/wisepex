@@ -66,27 +66,27 @@
     align-items: center;
     justify-content: space-between;
     background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(0.625rem);
+    backdrop-filter: blur(1px);
     border-radius: 40px;
     border: 0.0625rem solid rgba(255, 255, 255, 0.35);
-    padding: 4vh 4%; /* Padding lateral en porcentaje para flexibilidad */
+    padding: 0 3vh; /* Padding lateral en porcentaje para flexibilidad */
     width: 100%;
     min-height: 25rem; /* Altura mínima relativa */
     gap: 2rem;
     box-sizing: border-box;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
 }
 
 .feature-card.show:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
-    border-color: rgba(255, 255, 255, 0.55);
-    background: rgba(255, 255, 255, 0.55);
-    transform: translateY(-10px);
-    z-index: 2;.feature-card.show {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-5px);
+    z-index: 2;
+}    
+    
+.feature-card.show {
     opacity: 1;
-    transform: perspective(1000px) rotateZ(0deg);
-}
-
-
+    transform: perspective(700px) rotateZ(0deg);
 }
 
 .feature-image-container {
@@ -96,7 +96,7 @@
 }
 
 .feature-image-container img {
-    width: 100%;
+    width: 96%;
     max-width: 35rem; /* Límite superior en rem */
     height: auto;
     aspect-ratio: 12 / 10;
@@ -152,14 +152,15 @@
 
 .feature-tags {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 15px;
-    flex-wrap: wrap;
 }
 
 .feature-tag {
     background-color: #0000FF;
     color: white;
-    padding: 0.5rem 1.2rem;
+    padding: 0.5rem 1em;
     border-radius: 3rem;
     font-size: 0.75rem;
     font-weight: 500;
@@ -167,6 +168,7 @@
 
 .feature-card.show:hover .feature-tag:hover {
     transform: scale(1.05);
+    transition: color 0.3s;
 }
 
 /* ----- FAQ Section ----- */
@@ -495,6 +497,10 @@
     }
     
     .feature-image-container img {
-        max-width: 100%; /* Permite que llene su 50% asignado */
+        max-width: 80%; /* Permite que llene su 50% asignado */
+    }
+
+    .feature-card.show{
+        gap: 1.5rem
     }
 }
