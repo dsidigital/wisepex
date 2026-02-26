@@ -519,10 +519,15 @@
         padding: 5vh 7vh 5vh 3vh;
     }
 
+    .feature-tag {
+        font-size: 0.9rem;
+    }
+
 }
 
 @media (min-width: 1400px) {
     .feature-image-container img {
         max-width: 70%;
     }
+
 }
