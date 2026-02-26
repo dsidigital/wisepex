@@ -2,7 +2,7 @@
 /* Depende de styles.css (variables :root, animaciones globales) */
 
 /* ----- Links ----- */
-#leistung {
+#leistung-link {
     color: var(--neon-blue);
 }
 

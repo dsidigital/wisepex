@@ -42,8 +42,10 @@ html, body {
 /* ========== SCROLL WRAPPER ========== */
 .scroll-wrapper {
     height: 100vh;
+    height: 100dvh; /* fix iOS Safari: adapta al viewport real (sin chrome del navegador) */
     overflow-x: hidden;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; /* momentum scroll en iOS */
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
     position: relative;
@@ -250,9 +252,11 @@ body::-webkit-scrollbar-thumb:hover {
     width: 100%;
     background: rgba(255, 255, 255, 0.40);
     backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(1px);
     border-top: 1px solid rgba(255, 255, 255, 0.45);
     padding: 4vh 5vh 2vh 5vh;
+    /* safe-area-inset-bottom: evita que el footer quede bajo el home indicator en iPhone X+ */
+    padding-bottom: max(2vh, env(safe-area-inset-bottom));
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -374,11 +378,13 @@ body::-webkit-scrollbar-thumb:hover {
 
     .footer-links {
         justify-content: center;
+        font-size: 0.8rem;
     }
 
     .site-footer {
-        padding: 4vh 20px 3vh 20px;
+        padding: 4vh;
         margin-top: 1vh;
+        align-items: center;
     }
 
 }
@@ -438,7 +444,7 @@ body::-webkit-scrollbar-thumb:hover {
     .navbar {
         justify-content: center;
         gap: clamp(0.5rem, 2.2vw, 1.8rem);
-        width: 76%;
+        width: 82%;
     }
 
     .logo-nav {
