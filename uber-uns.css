@@ -1,4 +1,9 @@
 /* ========== ÜBER UNS - PÁGINA SOBRE NOSOTROS ========== */
+/* ----- Links ----- */
+#uber-uns {
+    color: var(--neon-blue);
+}
+
 /* ----- Hero: título e intro ----- */
 .main-title {
     display: flex;
