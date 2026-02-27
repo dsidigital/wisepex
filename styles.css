@@ -3,7 +3,7 @@
     --neon-blue: #1304ea;
     --neon-purple: #8137ff;
     --logo-width-desktop: 35vw;
-    --content-gap-bottom: 12vh;
+    --content-gap-bottom: 10vh;
     --transition-normal: 0.3s ease;
 }
 
@@ -147,8 +147,8 @@ body::-webkit-scrollbar-thumb:hover {
     right: 0;
     margin: 0 auto;
     border-radius: 50px;
-    background: rgba(255, 255, 255, 0.40);
-    backdrop-filter: blur(1px);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     padding: 1vh 4vw;
@@ -204,48 +204,63 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
-/* Contenedor principal del indicador */
-.scroll-indicator {
+/* "Scroll" */
+.scroll-hint {
     position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem; /* space-y-3 */
-    cursor: pointer;
-    animation: scroll-bounce 2s infinite; /* animate-scroll-bounce */
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
 }
 
-/* Estilo del texto "Scroll" */
-.scroll-text {
-    font-family: 'Space Grotesk', sans-serif; /* Aproximación a font-space */
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #4a515b; /* text-slate-400 */
+.scroll-hint.hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
-/* La línea vertical con degradado */
-.scroll-line {
-    width: 3px;
-    height: 3rem; /* h-12 */
-    background: linear-gradient(to bottom, #2a3f59eb, transparent); /* from-slate-300 to-transparent */
+.arrow-down {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+}
+
+
+.arrow-down span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-bottom: 3px solid #333;
+    border-right: 3px solid #333;
+    transform: rotate(45deg);
+    margin: -10px auto 0 auto;
+    animation: arrow 2s infinite;
 }
 
 /* Definición de la animación de rebote */
-@keyframes scroll-bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translate(-50%, 0);
+@keyframes arrow {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) translate(-10px, -10px);
     }
-    40% {
-        transform: translate(-50%, -10px);
+    50% {
+        opacity: 1;
     }
-    60% {
-        transform: translate(-50%, -5px);
-    }
+    100% {
+        opacity: 0;
+        transform: rotate(45deg) translate(10px, 10px);
+    }}
+
+
+.arrow-down span:nth-child(2) {
+    animation-delay: -0.2s;
 }
 
+.arrow-down span:nth-child(3) {
+    animation-delay: -0.4s;
+}
 
 /* ----- Footer (glassmorphism) ----- */
 .site-footer {
@@ -345,7 +360,7 @@ body::-webkit-scrollbar-thumb:hover {
 
     .navbar {
         width: calc(100% - 40px);
-        max-width: calc(100vw - 40px);
+        max-width: 500px;
         margin: 0 auto;
         left: 0;
         right: 0;
@@ -389,10 +404,10 @@ body::-webkit-scrollbar-thumb:hover {
 
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) {
     .navbar {
-        width: 60%;
-        max-width: 92%;
+        width: 70%;
+        max-width: 650px;
         padding: 1.2vh 3vw;
     }
 
@@ -409,42 +424,10 @@ body::-webkit-scrollbar-thumb:hover {
     }
 }
 
-@media (min-width: 1024px) {
-    .navbar {
-        width: 56%;
-        max-width: 1000px;
-        padding: 1.2vh 3vw;
-        top: 3vh;
-    }
-
-    .nav-links {
-        gap: 2vw;
-    }
-
-    .divider {
-        width: 2px;
-        min-width: 2px;
-        height: 5vh;
-        background-color: #0044ff;
-    }
-
-    .logo-nav {
-        margin-right: 2.5vw;
-    }
-}
-
-@media (min-width: 1920px) {
-    .navbar {
-        max-width: 1400px;
-        width: 46%;
-    }
-}
-
 @media (max-width: 1023px) {
     .navbar {
         justify-content: center;
         gap: clamp(0.5rem, 2.2vw, 1.8rem);
-        width: 82%;
     }
 
     .logo-nav {
@@ -465,3 +448,58 @@ body::-webkit-scrollbar-thumb:hover {
         flex-shrink: 0;
     }
 }
+
+
+@media (min-width: 1024px) {
+
+    :root {
+        --content-gap-bottom: 12vh;
+    }
+
+    .navbar {
+        width: 73%;
+        max-width: 900px;
+        padding: 1.2vh 3vw;
+        top: 3vh;
+        border-radius: 80px;
+    }
+
+    .logo-nav-img {
+        width: clamp(7rem, 17vw, 12rem);
+        object-fit: contain;
+    }
+    
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.8rem, 2.4vw, 2rem);
+    }
+    
+    .nav-links a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: clamp(0.65rem, 1.8vw, 1.1rem);
+        letter-spacing: 0.05em;
+        transition: color 0.3s;
+        
+    }
+
+    .divider {
+        width: 2px;
+        min-width: 2px;
+        height: 5vh;
+        background-color: #0044ff;
+    }
+
+    .logo-nav {
+        margin-right: 2.5vw;
+    }
+}
+
+@media (min-width: 1920px) {
+    .navbar {
+        width: 46%;
+    }
+}
+

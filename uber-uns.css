@@ -103,12 +103,22 @@
 }
 
 /* ----- Card text ----- */
+.text-card-wrapper {
+    position: relative;
+    perspective: 600px;
+    width: 100%;
+    text-align: center;
+}
+
 .content-text-card {
     font-size: 1.2rem;
     font-weight: 700;
     font-family: Arial, sans-serif;
     text-align: center;
     margin-top: 0;
+    transition: transform 0.4s ease 0.25s, opacity 0.3s ease 0.25s;
+    transform-origin: center top;
+    backface-visibility: hidden;
 }
 
 .content-text-card strong {
@@ -130,8 +140,42 @@
     margin: 0;
 }
 
-.content-block-card.is-flipped .extra-text-card {
+/* --- Texto flipped --- */
+.flipped-text-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    opacity: 0;
+    transform: rotateX(-90deg);
+    transform-origin: center top;
+    backface-visibility: hidden;
+    transition: transform 0.4s ease 0.25s, opacity 0.3s ease 0.25s;
+    pointer-events: none;
+}
+
+.flipped-text-card strong {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+/* --- Estado activo (hover / click) --- */
+.content-block-card.is-flipped .content-text-card {
+    transform: rotateX(90deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.content-block-card.is-flipped .flipped-text-card {
+    transform: rotateX(0deg);
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* ----- Responsive ----- */

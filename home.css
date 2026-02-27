@@ -74,7 +74,6 @@
     backdrop-filter: blur(1px);
     border-radius: 40px;
     border: 0.0625rem solid rgba(255, 255, 255, 0.35);
-    padding:3vh; /* Padding lateral en porcentaje para flexibilidad */
     width: 100%;
     gap: 2rem;
     box-sizing: border-box;
@@ -92,6 +91,7 @@
 .feature-card.show {
     opacity: 1;
     transform: perspective(700px) rotateZ(0deg);
+    padding: 5vh;
 }
 
 .feature-image-container {
@@ -127,7 +127,6 @@
 .feature-content-left, 
 .feature-content-right {
     flex: 1; /* Esto garantiza el 50% de ancho para el texto */
-    padding: 1rem;
     text-align: left;
 }
 .feature-title {
@@ -517,7 +516,10 @@
 
     .feature-card.show{
         gap: 1.5rem;
-        padding: 5vh 7vh 5vh 3vh;
+    }
+
+    .feature-content-left, .feature-content-right {
+        margin: 5vh;
     }
 
     .feature-tag {
@@ -531,4 +533,8 @@
         max-width: 70%;
     }
 
+
+    .feature-content-left, .feature-content-right {
+        margin: 7vh;
+    }
 }

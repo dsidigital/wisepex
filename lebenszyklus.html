@@ -39,10 +39,13 @@
               einen klaren Plan und verlässliche Partner.</p>
 
             <section style="position: relative; height: 26vh;"> 
-              <div class="scroll-indicator">
-                <span class="scroll-text">Scroll</span>
-                <div class="scroll-line"></div>
-              </div>
+              <div id="scrollHint" class="scroll-hint">
+                <div class="arrow-down">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+              </div>            
             </section>
 
               <div class="content-block-lebenszyklus">
@@ -166,7 +169,7 @@
                               Wie fließen die Daten? Welche Abläufe hängen voneinander ab?
                             </p>
                             <p class="lebenszyklus-description">
-                              Governance und Securitys ind dabei wie die Bauordnung und die Sicherheitsvorschriften auf einer echten Baustelle: 
+                              Governance und Security sind dabei wie die Bauordnung und die Sicherheitsvorschriften auf einer echten Baustelle: 
                               Sie legen fest, wie gebaut werden darf, wer Zugang hat, und welche Schutzmaßnahmen gelten. 
                               Wir prüfen regelmäßig, ob diese Regeln auch eingehalten werden – durch Audits, klare Zuständigkeiten und Sicherheitskontrollen. 
                               So bleibt dein digitales Haus stabil und sicher. Wir planen Meilensteine, definieren Verantwortlichkeiten und stellen sicher, 
@@ -347,6 +350,20 @@
     document.querySelectorAll('.feature-card').forEach(card => {
         featureObserver.observe(card);
     });
+
+    const scrollHint = document.getElementById('scrollHint');
+    const scrollWrapper = document.querySelector('.scroll-wrapper');
+    if (scrollHint && scrollWrapper) {
+        scrollWrapper.addEventListener('scroll', () => {
+            if (scrollWrapper.scrollTop > 50) {
+                scrollHint.classList.add('hidden');
+            } else {
+                scrollHint.classList.remove('hidden');
+            }
+        });
+    }
+
+
 
     </script>
 

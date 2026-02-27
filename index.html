@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"  class style="--logo-start-y: calc(141.75px - 50%);
+    --vh-offset: 141.75px;">
     <meta name="theme-color" content="#dfeaff">
     <title>Wisepex - Interface</title>
     <link rel="icon" href="img/Sparky blue4.png" type="image/x-icon">
@@ -38,14 +39,16 @@
             
             <p class="hero-intro">Wir begleiten dich bei der Analyse, Planung und Umsetzung deiner digitalen Lösungen.<br>
                 Praxisnah, transparent und technologieoffen</p>   
-                
+     
             <section style="position: relative; height: 26vh;"> 
-                <div class="scroll-indicator">
-                  <span class="scroll-text">Scroll</span>
-                  <div class="scroll-line"></div>
-                </div>
+                <div id="scrollHint" class="scroll-hint">
+                    <div class="arrow-down">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>            
             </section>
-          
              
                 <section class="features-container">
                     <div class="features-grid">
@@ -141,7 +144,7 @@
                 <div class="block-faq block-faq-1">
                 
                     <button class="faq-question">
-                        Wie läuft ein typisches Projekt mit wisepx ab?
+                        Wie läuft ein typisches Projekt mit wisepex ab?
                     </button>
                 
                     <div class="faq-answer">
@@ -297,6 +300,18 @@
     document.querySelectorAll('.feature-card').forEach(card => {
         featureObserver.observe(card);
     });
+
+    const scrollHint = document.getElementById('scrollHint');
+    const scrollWrapper = document.querySelector('.scroll-wrapper');
+    if (scrollHint && scrollWrapper) {
+        scrollWrapper.addEventListener('scroll', () => {
+            if (scrollWrapper.scrollTop > 50) {
+                scrollHint.classList.add('hidden');
+            } else {
+                scrollHint.classList.remove('hidden');
+            }
+        });
+    }
 
     </script>
 
