@@ -4,40 +4,49 @@
     color: var(--neon-blue);
 }
 
-/* ----- Hero: título e intro ----- */
-.main-title {
-    display: flex;
-    position: relative;
-    text-align: center;
-    font-size: clamp(2.5rem, 5vw, 5.5rem);
-    font-weight: 600;
-    margin: 20vh auto 3vh auto;
-    max-width: 95%;
-    z-index: 102;
-    opacity: 1;
-    animation: titleAppear 1s ease-out 2.5s forwards;
-}
-
-.hero-intro {
-    font-size: clamp(1rem, 2.5vw, 1.6rem);
-    line-height: 1.6;
-    margin: 0 auto 18vh auto;
-    text-align: center;
-    max-width: 90%;
-}
-
 /* Depende de styles.css (variables :root, animaciones globales) */
 
-/* ----- Team Grid ----- */
+/* ========== GLOBAL SITE CONTAINER — override por página ========== */
+.global-site-container {
+    padding-top: 16vh;
+    padding-bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 1800px;
+}
+
+@media (max-width: 1024px) {
+    .global-site-container { padding-top: 14vh; }
+}
+
+@media (max-width: 768px) {
+    .global-site-container {
+        padding-top: 13vh;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .global-site-container { padding-top: 12vh; }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+    .global-site-container { padding-top: 16vh; }
+}
+
+/* ----- Team Flex Grid ----- */
 .team-container {
     width: 90%;
-    max-width: 75rem;
+    max-width: 95%;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2rem;
-    justify-items: stretch;
-    align-items: start;
 }
 
 .team-container-title {
@@ -59,6 +68,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    width: calc(33.333% - 1.34rem);
 }
 
 .image-wrapper {
@@ -183,8 +193,11 @@
 /* Tablet: 2 columnas */
 @media (max-width: 900px) {
     .team-container {
-        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+    }
+
+    .content-block-card {
+        width: calc(50% - 1rem);
     }
 
     .image-wrapper {
@@ -194,12 +207,7 @@
 
 /* Móvil: 1 columna */
 @media (max-width: 768px) {
-    .hero-intro {
-        margin: 0 auto 11vh auto;
-    }
-
     .team-container {
-        grid-template-columns: 1fr;
         gap: 10vh;
         width: 100%;
     }
@@ -228,10 +236,6 @@
 /* Móvil pequeño */
 @media (max-width: 480px) {
 
-    .main-title {
-        margin-top: 10vh;
-    }
-
     .team-container-title {
         font-size: 1.6rem;
         margin-bottom: 1.5vh;
@@ -253,18 +257,17 @@
 
 /* Paisaje móvil pequeño */
 @media (max-width: 767px) and (orientation: landscape) {
-    .hero-intro {
-        margin: 0 auto 10vh auto;
-    }
-
     .team-container-title {
         font-size: 1.8rem;
         margin-bottom: 1.5vh;
     }
 
     .team-container {
-        grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+    }
+
+    .content-block-card {
+        width: calc(50% - 0.75rem);
     }
 
     .image-wrapper {
@@ -280,8 +283,11 @@
     }
 
     .team-container {
-        grid-template-columns: repeat(3, 1fr);
         gap: 1.2rem;
+    }
+
+    .content-block-card {
+        width: calc(33.333% - 0.8rem);
     }
 
     .image-wrapper {
@@ -295,17 +301,6 @@
 
 /* Tablet portrait */
 @media (min-width: 768px) and (max-width: 1023px) {
-    .main-title {
-        font-size: clamp(2.5rem, 5vw, 5.5rem);
-        font-weight: 600;
-        margin: 20vh auto 3vh auto;
-        max-width: 95%;
-    }
-
-    .hero-intro {
-        margin: 0 auto 18vh auto;
-    }
-
     .team-container {
         gap: 3rem;
     }
@@ -323,7 +318,6 @@
 /* Desktop: 3 columnas, imagen al 80% */
 @media (min-width: 1024px) {
     .team-container {
-        grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
     }
 
@@ -344,15 +338,7 @@
 /* Desktop landscape */
 @media (min-width: 1024px) and (orientation: landscape) {
     .global-site-container {
-        min-height: 100vh;
-        margin-top:6vh;
-        padding-top: 15vh;
-        padding-bottom: 5vh;
         justify-content: space-between;
-    }
-
-    .hero-intro {
-        margin: 0 auto 10vh auto;
     }
 
     .team-container-title {
@@ -369,6 +355,10 @@
 
     .team-container {
         gap: 3rem;
+    }
+
+    .content-block-card {
+        width: calc(33.333% - 2rem);
     }
 
     .image-wrapper {

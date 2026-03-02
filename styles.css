@@ -139,6 +139,29 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
+/* ========== HERO GLOBAL (título e intro — idéntico en todas las páginas) ========== */
+.main-title {
+    display: flex;
+    position: relative;
+    text-align: center;
+    font-size: clamp(2.5rem, 5vw, 5.5rem);
+    font-weight: 600;
+    margin: 20vh auto 3vh auto;
+    max-width: 95%;
+    z-index: 102;
+    opacity: 1;
+    animation: titleAppear 1s ease-out 2.5s forwards;
+}
+
+.hero-intro {
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    line-height: 1.6;
+    margin: 0 auto 10vh auto;
+    text-align: center;
+    max-width: 90%;
+}
+
+
 /* ========== NAVBAR ========== */
 .navbar {
     position: fixed;
@@ -385,6 +408,17 @@ body::-webkit-scrollbar-thumb:hover {
         max-width: 100%;
     }
 
+    .main-title {
+        margin-top: 15vh;
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+
+    .hero-intro {
+        margin-bottom: 8vh;
+        font-size: 1.1rem;
+        line-height: 1.4;
+    }
+
     .footer-bottom {
         flex-direction: column;
         gap: 15px;
@@ -404,6 +438,19 @@ body::-webkit-scrollbar-thumb:hover {
 
 }
 
+/* Hero: 480px sobreescribe el breakpoint de 768px */
+@media (max-width: 480px) {
+    .main-title {
+        margin-top: 12vh;
+        font-size: 1.6rem;
+    }
+
+    .hero-intro {
+        margin-bottom: 6vh;
+        font-size: 1rem;
+    }
+}
+
 @media (min-width: 768px) {
     .navbar {
         width: 70%;
@@ -421,6 +468,13 @@ body::-webkit-scrollbar-thumb:hover {
     .global-site-container {
         padding-top: 14vh;
         padding-bottom: 5vh;
+    }
+}
+
+/* Hero: pantallas grandes — refuerzo del margen superior del título */
+@media (min-width: 1200px) {
+    .main-title {
+        margin-top: 20vh;
     }
 }
 
