@@ -84,7 +84,7 @@
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s ease;
-    border-radius: 25%;
+    border-radius: 27%;
     border: 0.8rem solid rgba(255, 255, 255, 0.55);
 }
 

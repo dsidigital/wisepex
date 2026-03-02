@@ -382,8 +382,7 @@ body::-webkit-scrollbar-thumb:hover {
     }
 
     .navbar {
-        width: calc(100% - 40px);
-        max-width: 500px;
+        width: 86%;
         margin: 0 auto;
         left: 0;
         right: 0;
@@ -453,7 +452,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 @media (min-width: 768px) {
     .navbar {
-        width: 70%;
+        width: 77%;
         max-width: 650px;
         padding: 1.2vh 3vw;
     }
@@ -511,8 +510,8 @@ body::-webkit-scrollbar-thumb:hover {
     }
 
     .navbar {
-        width: 73%;
-        max-width: 900px;
+        width: 80%;
+        max-width: 1000px;
         padding: 1.2vh 3vw;
         top: 3vh;
         border-radius: 80px;
@@ -553,7 +552,8 @@ body::-webkit-scrollbar-thumb:hover {
 
 @media (min-width: 1920px) {
     .navbar {
-        width: 46%;
+        width: 50%;
+        max-width: 1000px;
     }
 }
 
