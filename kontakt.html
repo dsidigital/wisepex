@@ -20,7 +20,7 @@
     <header class="navbar">
         <div class="logo-nav">
             <a href="index.html">
-                <img src="img/Black Logo Wisepex.png" alt="Logo Honeypex Wisepex" class="logo-nav-img">
+                <img src="img/Black Logo Wisepex.png" alt="Logo Wisepex" class="logo-nav-img">
             </a>        
         </div>
         <div class="nav-links">
@@ -36,7 +36,7 @@
 <section class="global-site-container">
     
     <div class="content-block-kontakt" id="kontakt">
-        <h2 class="kontakt-title-simple">KONTAKT</h2>
+        <h1 class="kontakt-title-simple">KONTAKT</h1>
         
         <div class="contact-grid">
             <div class="contact-block">
@@ -62,7 +62,7 @@
             <div class="content-block-kontakt">
             <span id="impressum" class="anchor-target"></span>
         
-            <h2 class="kontakt-title-simple">IMPRESSUM</h2>
+            <h1 class="kontakt-title-simple">IMPRESSUM</h1>
 
                 <div class="legal-grid-4">
                   <div class="legal-col">
@@ -94,7 +94,7 @@
             <div class="divider-line"></div>
             
             <div class="legal-block">
-              <h2 class="kontakt-title-simple">HAFTUNGSAUSSCHLUSS</h2>
+              <h1 class="kontakt-title-simple">HAFTUNGSAUSSCHLUSS</h1>
               <p>
                 Als Dienstanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen
                 Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Dienstanbieter jedoch nicht verpflichtet,
@@ -112,7 +112,7 @@
             <div class="divider-line"></div>
         
             <div class="legal-block">
-              <h2 class="kontakt-title-simple">HAFTUNG FÜR LINKS</h2>
+              <h1 class="kontakt-title-simple">HAFTUNG FÜR LINKS</h1>
               <p>
                 Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
                 Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
@@ -124,7 +124,7 @@
 
             <span id="datenschutz" class="anchor-target"></span>
             <div class="legal-block legal-block1">
-              <h2 class="kontakt-title-simple">DATENSCHUTZERKLÄRUNG</h2>
+              <h1 class="kontakt-title-simple">DATENSCHUTZERKLÄRUNG</h1>
                       
                 <p><strong>1) Einleitung und Kontaktdaten des Verantwortlichen</strong></p>
             
@@ -468,7 +468,12 @@
             const wrapper = document.querySelector('.scroll-wrapper');
             if (target && wrapper) {
               setTimeout(() => {
-                wrapper.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                const wrapperRect = wrapper.getBoundingClientRect();
+                const targetRect = target.getBoundingClientRect();
+                wrapper.scrollTo({
+                  top: wrapper.scrollTop + (targetRect.top - wrapperRect.top),
+                  behavior: 'smooth'
+                });              
               }, 100);
             }
           }
