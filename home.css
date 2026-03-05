@@ -22,59 +22,7 @@
     visibility: hidden;
 }
 
-/* ========== GLOBAL SITE CONTAINER — override por página ========== */
-.global-site-container {
-    padding-top: 16vh;
-    padding-bottom: 5vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    max-width: 1800px;
-}
-
-@media (max-width: 1024px) {
-    .global-site-container { padding-top: 14vh; }
-}
-
-@media (max-width: 768px) {
-    .global-site-container {
-        padding-top: 13vh;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .global-site-container { padding-top: 12vh; }
-}
-
-@media (max-width: 900px) and (orientation: landscape) {
-    .global-site-container { padding-top: 16vh; }
-}
-
 /* ----- Features Section ----- */
-
-.features-container {
-    width: 90%;
-    max-width: 87.5rem;
-    margin: 0 auto;
-    padding: 0 6vh;
-    box-sizing: border-box;
-}
-
-.features-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 25vh;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    min-width: 0;
-}
 
 .feature-card {
     display: flex;
@@ -85,9 +33,7 @@
     backdrop-filter: blur(1px);
     border-radius: 40px;
     border: 0.0625rem solid rgba(255, 255, 255, 0.35);
-    width: 100%;
     gap: 3rem;
-    box-sizing: border-box;
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.4s ease;
 }
 
@@ -112,8 +58,7 @@
 }
 
 .feature-image-container img {
-    width: 96%;
-    max-width: 35rem; /* Límite superior en rem */
+    width: 100%;
     height: auto;
     aspect-ratio: 12 / 10;
     object-fit: cover;
@@ -141,24 +86,20 @@
     text-align: left;
 }
 .feature-title {
-    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-size: 2.3rem;
     font-weight: 600;
     color: #000;
     margin-bottom: 20px;
     text-transform: uppercase;
-}
-
-.feature-title-projektmanagement {
-    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    text-align: center;
 }
 
 .feature-description {
-    font-size: 1rem;
+    font-size: 1.4rem;
     line-height: 1.4;
     color: #333;
     margin-bottom: 3vh;
-    max-width: 500px;
-    text-align: left;
+    text-align: center;
 }
 
 .feature-tags {
@@ -322,24 +263,11 @@
         font-size: clamp(1.1rem, 4vw, 2.2rem);
     }
 
-    .features-container {
-        width: 100%;
-        padding: 0 2vh;
-    }
-
-    .features-grid {
-        max-width: 100%;
-        padding: 0;
-        width: 100%;
-        gap: 15vh;
-    }
-
     .feature-card {
         flex-direction: column; /* Cambia a disposición vertical */
-        padding: 2rem 5%;
         text-align: center; /* Centra el texto por defecto */
         min-height: auto;   /* Permite que la tarjeta crezca según el contenido */
-        gap: 1.5rem;    
+        gap: 0.5rem;    
     }
 
     .feature-card.show {
@@ -366,7 +294,6 @@
         width: 100%;
         text-align: center;
         margin-bottom: 1rem;
-        max-width: 100%;
     }
 
     .feature-image-container {
@@ -378,7 +305,6 @@
 
     .feature-image-container img {
         width: 100%;
-        max-width: 100%;
         height: auto;
         aspect-ratio: auto;
         display: block; /* Garantiza visibilidad */
@@ -460,10 +386,6 @@
 
 @media (max-width: 480px) {
 
-    .feature-card {
-        padding: 15px 24px;
-    }
-
     .feature-tags {
         gap: 8px;
     }
@@ -490,44 +412,19 @@
         gap: 1rem;
     }
 
-    .feature-card.show {
-        padding: 2vh;
-    }
-
     .feature-tag {
         font-size: 0.65rem;
-    }
-}
-
-@media (max-width: 1200px) { 
-    .features-container {
-        max-width: 87.5rem;
-        width: 100%;
-        padding: 0;
     }
 }
 
 /* ----- CORRECCIÓN PARA PANTALLAS GRANDES ----- */
 @media (min-width: 1200px) { 
 
-    .features-grid {
-        gap: 25vh; /* Espaciado entre tarjetas basado en el alto de pantalla */
-    }
-
     /* Eliminamos las restricciones de height que tenías aquí anteriormente */
     .feature-image {
         display: contents; /* Anulamos el contenedor antiguo si existe */
     }
     
-    .feature-image-container img {
-        max-width: 80%; /* Permite que llene su 50% asignado */
-    }
-
-    .feature-card.show{
-        gap: 1.5rem;
-        padding: 2vh 5vh;
-    }
-
     .feature-content-left, .feature-content-right {
         margin: 2vh;
     }
@@ -543,9 +440,6 @@
 }
 
 @media (min-width: 1400px) {
-    .feature-image-container img {
-        max-width: 70%;
-    }
 
 
     .feature-content-left, .feature-content-right {
