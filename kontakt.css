@@ -323,3 +323,31 @@
       }
 
     }
+
+    @media (min-width: 1901px) {
+
+      .content-block-kontakt {
+        padding: 6rem;
+      }
+
+      .legal-block {
+        margin: 0;
+      }
+
+      .kontakt-title-simple {
+        font-size: clamp(2.5rem, 4vw, 3.8rem);
+        margin-left: 2vw;
+      }
+
+      .contact-block h3, .legal-col h3 {
+        font-size: 1.8rem;
+      }
+
+      .contact-block p, .legal-col p, .legal-block p {
+        font-size: 1.5rem;
+      }
+
+      .legal-block h3 {
+        font-size: clamp(2.2rem, 3.2vw, 3.8rem);
+      }
+    }

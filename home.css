@@ -111,6 +111,7 @@
     max-width: 500px;
     box-sizing: border-box;
     justify-content: center;
+    margin-bottom: 0;
 }
 
 .feature-tag {
@@ -258,7 +259,56 @@
 
 /* ----- Responsive Home ----- */
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
+    .feature-card {
+        display: flex;
+        align-items: center;
+    }
+
+    .feature-image-container,
+    .feature-content-left,
+    .feature-content-right {
+        flex: 1 1 50%;
+        min-width: 0;
+    }
+
+    .feature-content-left,
+    .feature-content-right {
+        max-width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .feature-image-container {
+        width: 50%;
+        max-width: 50%;
+    }
+
+    .feature-title,
+    .feature-description {
+        margin-top: 0;
+    }
+
+    .feature-content-left > .feature-tags:last-child,
+    .feature-content-right > .feature-tags:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .feature-card,
+    .feature-card.show {
+        padding: 4vh clamp(1.25rem, 3vw, 2.5rem);
+        gap: clamp(1rem, 2.5vw, 2rem);
+    }
+
+    .feature-title {
+        font-size: 1.6rem;
+    }    
+}
+
+@media (max-width: 767px) {
     .feature-title {
         font-size: clamp(1.1rem, 4vw, 2.2rem);
     }
@@ -397,7 +447,18 @@
 
 }
 
-@media (max-width: 900px) and (orientation: landscape) {
+@media (max-width: 932px) and (orientation: landscape) {
+    .global-site-container {
+        min-height: 100vh;
+        min-height: 100dvh;
+        min-height: -webkit-fill-available;
+        padding-bottom: max(3vh, env(safe-area-inset-bottom));
+    }
+
+    .scroll-hint {
+        height: 31vh !important;
+    }
+
     .content-block-questions {
         padding: 2rem 20px;
         border-radius: 1.5rem;
@@ -408,12 +469,78 @@
         margin: 0 auto 1vh auto;
     }
 
-    .feature-card {
-        gap: 1rem;
+    .feature-card,
+    .feature-card.show {
+        width: 95%;
+        margin: 0 auto;
+        padding: 6vh 5vw;
+        gap: min(3rem, 5vw);
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+    }
+
+    .feature-content-left,
+    .feature-content-right {
+        display: flex;
+        flex: 1;
+        min-width: 0;
+        max-width: none;
+        text-align: left;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .feature-title {
+        order: initial;
+        width: auto;
+        text-align: center;
+        font-size: clamp(1.3rem, 2.2vw, 1.4rem);
+        margin: 0 0 0.5rem 0;
+    }
+
+    .feature-description {
+        order: initial;
+        width: auto;
+        text-align: center;
+        font-size: clamp(1rem, 1.6vw, 1rem);
+        line-height: 1.4;
+        margin: 0 0 0.45rem 0;
+    }
+
+    .feature-image-container {
+        order: initial;
+        flex: 0 0 40%;
+        width: auto;
+        max-width: 40%;
+        min-height: 0;
+        justify-content: center;
+    }
+
+    .feature-image-container img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+       /* max-height: 40vh;
+        max-height: 40dvh;*/
+    }
+
+    .feature-tags {
+        order: initial;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+        max-width: 100%;
+        margin: 0.75rem auto 0;
+        gap: 0.5rem;
     }
 
     .feature-tag {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
+        padding: 0.3rem 0.55rem;
+        min-width: auto;
     }
 }
 
@@ -425,10 +552,6 @@
         display: contents; /* Anulamos el contenedor antiguo si existe */
     }
     
-    .feature-content-left, .feature-content-right {
-        margin: 2vh;
-    }
-
     .feature-description {
         font-size: 1.2rem;
     }
@@ -439,10 +562,20 @@
 
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1901px) {
+    .feature-title {
+        font-size: 2.55rem;
+    }
 
+    .feature-description {
+        font-size: 1.4rem;
+    }
 
-    .feature-content-left, .feature-content-right {
-        margin: 3vh;
+    .faq-question {
+        font-size: 1.5rem;
+    }
+
+    .faaq-answer p {
+        font-size: 1.4rem;
     }
 }
