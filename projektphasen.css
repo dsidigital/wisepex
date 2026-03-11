@@ -13,31 +13,6 @@
     visibility: hidden;
 }
 
-/* ===== CONTENT BLOCK (intro) ===== */
-.content-block-lebenszyklus {
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(1px);
-    -webkit-backdrop-filter: blur(1px);
-    border-radius: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    font-size: 1.1rem;
-    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.4s ease;
-}
-
-.content-block-lebenszyklus h3 {
-    margin-bottom: 1rem;
-    font-size: 1.5em;
-}
-
-.content-block-lebenszyklus p {
-    margin: 0 0 0.2em 0;
-    line-height: 1.5;
-}
-
-.content-block-lebenszyklus .p-section-end {
-    margin-bottom: 1.1em;
-}
-
 /* ===== LEBENSZYKLUS CARD — BASE (mobile first) ===== */
 .lebenszyklus-card {
     display: flex;
@@ -53,8 +28,7 @@
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.4s ease;
 }
 
-.lebenszyklus-card:hover,
-.content-block-lebenszyklus:hover {
+.lebenszyklus-card:hover {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.20);
     border-color: rgba(255, 255, 255, 0.35);
     background: rgba(255, 255, 255, 0.35);
@@ -144,13 +118,6 @@
 /* ===== RESPONSIVE — ≤768px ===== */
 @media (max-width: 768px) {
 
-    .content-block-lebenszyklus {
-        margin: 2vh auto;
-        padding: 2rem;
-        text-align: center;
-        width: 100%;
-    }
-
     .lebenszyklus-card {
         flex-direction: column;
         align-items: center;
@@ -208,17 +175,6 @@
 /* ===== RESPONSIVE — ≤480px ===== */
 @media (max-width: 480px) {
 
-    .content-block-lebenszyklus {
-        margin: 0 auto 15vh;
-        padding: 1.5rem;
-        font-size: 1.1rem;
-    }
-
-    .content-block-lebenszyklus h3 {
-        font-size: 1.2em;
-        text-align: center;
-    }
-
     .lebenszyklus-card {
         padding: 20px 1.5rem;
     }
@@ -233,29 +189,9 @@
         padding-bottom: max(3vh, env(safe-area-inset-bottom));
     }
 
-    .scroll-hint {
-        height: 31vh !important;
-    }
-
     .lebenszyklus-grid {
         gap: min(10vh, 4rem);
         padding: 2rem 20px;
-    }
-
-    .content-block-lebenszyklus {
-        width: 95%;
-        margin: 0 auto;
-        padding: 5vh 4vw;
-    }
-
-    .content-block-lebenszyklus h3 {
-        font-size: clamp(1.05rem, 2vw, 1.2rem);
-        margin-bottom: 0.6rem;
-    }
-
-    .content-block-lebenszyklus p {
-        font-size: clamp(0.9rem, 1.4vw, 1rem);
-        line-height: 1.35;
     }
 
     .lebenszyklus-card,
@@ -331,14 +267,6 @@
 /* ===== PANTALLAS MAXI — ≥1400px ===== */
 @media (min-width: 1400px) {
 
-    .content-block-lebenszyklus h3 {
-        font-size: 1.8rem;
-    }
-
-    .content-block-lebenszyklus p {
-        font-size: 1.4em;
-    }
-
     .lebenszyklus-description {
         line-height: 1.3;
         font-size: 1.3rem;
@@ -354,14 +282,6 @@
 }
 
 @media (min-width: 1901px) {
-    .content-block-lebenszyklus h3 {
-        font-size: 2.4rem;
-    }
-
-    .content-block-lebenszyklus p {
-        font-size: 1.7em;
-    }
-
     .lebenszyklus-title {
         font-size: clamp(1.28rem, 3.7vw, 2.1rem);
     }

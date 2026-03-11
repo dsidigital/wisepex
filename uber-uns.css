@@ -278,10 +278,6 @@
 /* Tablet paisaje: volver a 3 columnas */
 @media (max-width: 932px) and (orientation: landscape) {
 
-    .hero-intro-uber-uns {
-        margin: 0 auto 8vh auto;
-    }
-
     .team-container-title {
         font-size: 2.2rem;
         margin-bottom: 1.5vh;
